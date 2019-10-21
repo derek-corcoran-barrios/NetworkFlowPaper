@@ -19,12 +19,12 @@ library(rasterVis)
 library(rworldxtra)
 library(sf)
 library(tidyverse)
-
+RasterSolsnandes <- readRDS("RasterSolsnandes.rds")
 ```
 
 # Introduction
 
-Currently, el 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us; ]. The situation is even wost when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis [@alagador2014shifting; @araujo2004would].
+Currently, el 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us]. The situation is even wost when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis [@alagador2014shifting; @araujo2004would].
 
 Despite the concern about protected area planning, in a review @jones2016incorporating shows that more than 90% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. In order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected aswell, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors besides taking unto account the effects of climate change, they have to take into account changes in land use and habitat fragmentation in order to evaluate the factibility of the species reaching future available habitat.
 
@@ -69,7 +69,7 @@ The studied area is shown in figure \@ref(fig:MapArea) and it encompases `r  pre
 knitr::include_graphics("Diag1.png", dpi = 200)
 ```
 
-Four GCM models were selected to project the species distribution using the GCMcompareR shiny app [@fajardo_javier_2018_2669407], we followed the storylines approach [@zappa2017storylines] and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble.
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app [@fajardo_javier_2018_2669407], we followed the storylines approach [@zappa2017storylines] and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble. The selected models where `r names(RasterSolsnandes)` al the process is shonw in in figure \@ref(fig:Diagrama).
 
 ## Niche modeling
 
@@ -137,9 +137,8 @@ at the appropriate place in the sente*
 
 # Results {-}
 
-<!-- Comments should be HTML-style comments -->
 
-## Quadratic Network Flow
+
 
 ```{r}
 RasterSolnandes <- readRDS("RasterSolnandes.rds")
@@ -149,17 +148,13 @@ values(MaskFull) <- ifelse(is.na(values(MaskFull)), NA, 1)
 ```
 
 
-## Linear Network Flow
-
 ```{r}
 RasterSolnandes_ln <- readRDS("RasterSolnandes_linear.rds")
 RasterSolnandes_ln <- RasterSolnandes_ln/cellStats(RasterSolnandes_ln, "max")
 ```
 
 
-## Zonation
-
-```{r, dev='png', dpi=700}
+```{r AllSols, dev='png', dpi=700}
 Zonation1 <- raster("nandes_endemic_rcp85_PA_cc.CAZ_MEBLP1000.wrscr.compressed.tif")
 Zonation1 <- Zonation1/cellStats(Zonation1, "max")
 
@@ -188,6 +183,9 @@ myTheme$panel.background$col = 'gray'
 levelplot(Sols, par.settings = myTheme)
 ```
 
+The results of all three algorithms is shonw in figure \@ref(fig:AllSols)
+
+
 ### Efficiency comparison (Number of cells)
 
 ```{r, dev='png', dpi=700}
@@ -203,17 +201,17 @@ names(Sols2) <- c("Quadratic NF", "Linear NF", "Zonation")
 levelplot(Sols2, par.settings = myTheme)
 Areas <- cellStats((Sols2*area(Sols2[[1]])), "sum")
 ```
-In this example when we calculate the top 10% of protected cells for Quadratic Network Flow we get `r prettyNum(round(Areas[1]), big.mark = ",")` Squared Kms, `r prettyNum(round(Areas[2]), big.mark = ",")` Squared Kms for linear Network Flow ,and `r prettyNum(round(Areas[3]), big.mark = ",")` Squared Kms for Zonation.
+In this example when we calculate the top 10% of protected cells for Quadratic Network Flow we get `r prettyNum(round(Areas[1]), big.mark = ",")` Squared Kms, `r prettyNum(round(Areas[2]), big.mark = ",")` Squared Kms for linear Network Flow, and `r prettyNum(round(Areas[3]), big.mark = ",")` Squared Kms for Zonation. That is  `r round((Areas[1]/(as.numeric(st_area(sandes))/1000000)*100),4)`, `r round((Areas[2]/(as.numeric(st_area(sandes))/1000000)*100),4)`, `r round((Areas[3]/(as.numeric(st_area(sandes))/1000000)*100),4)` percent of the total area respectively.
 
-```{r}
+```{r, dev='png', dpi=700}
 r <- ratify(sum(Sols2))
 
 rat <- levels(r)[[1]]
-rat$landcover <- c("xero",'one', 'two', 'three')
+rat$landcover <- c("Zero",'One', 'Two', 'Three')
 rat$class <- c("0",'A1', 'B2', 'C3')
 levels(r) <- rat
 
-levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1', "black"))
+levelplot(r, col.regions=c("#0571b0","#92c5de","#f4a582","#ca0020"), colorkey = list(title = "Number of algorithms"))
 ```
 
 

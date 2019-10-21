@@ -105,7 +105,7 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Currently, el 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns {[}Rodrigues et al. (2004); Jenkins et al. (2015); {]}. The situation is even wost when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
+Currently, el 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns (Rodrigues et al. 2004; Jenkins et al. 2015). The situation is even wost when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
 
 Despite the concern about protected area planning, in a review Jones et al. (2016) shows that more than 90\% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. In order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected aswell, that is the biological corridors that they will use (Nuñez et al. 2013; Rosenberg, Noon, and Meslow 1997). Thus the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al. 2007). In that context, biological corridors besides taking unto account the effects of climate change, they have to take into account changes in land use and habitat fragmentation in order to evaluate the factibility of the species reaching future available habitat.
 
@@ -146,7 +146,7 @@ The studied area is shown in figure \ref{fig:MapArea} and it encompases 3,632,76
 \includegraphics[width=4.39in]{Diag1} \caption{All the steps and programs used in the Optimization}\label{fig:Diagrama}
 \end{figure}
 
-Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the storylines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble.
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the storylines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble. The selected models where cc, cn, la, mp al the process is shonw in in figure \ref{fig:Diagrama}.
 
 \hypertarget{niche-modeling}{%
 \subsection{Niche modeling}\label{niche-modeling}}
@@ -217,24 +217,17 @@ at the appropriate place in the sente}
 \section*{Results}\label{results}}
 \addcontentsline{toc}{section}{Results}
 
-\hypertarget{quadratic-network-flow-1}{%
-\subsection{Quadratic Network Flow}\label{quadratic-network-flow-1}}
+\includegraphics{NFPaper_files/figure-latex/AllSols-1.png}
 
-\hypertarget{linear-network-flow-1}{%
-\subsection{Linear Network Flow}\label{linear-network-flow-1}}
-
-\hypertarget{zonation-1}{%
-\subsection{Zonation}\label{zonation-1}}
-
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-3-1.png}
+The results of all three algorithms is shonw in figure \ref{fig:AllSols}
 
 \hypertarget{efficiency-comparison-number-of-cells}{%
 \subsubsection{Efficiency comparison (Number of cells)}\label{efficiency-comparison-number-of-cells}}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-4-1.png}
-In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 482,440 Squared Kms, 480,630 Squared Kms for linear Network Flow ,and 482,477 Squared Kms for Zonation.
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-3-1.png}
+In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 482,440 Squared Kms, 480,630 Squared Kms for linear Network Flow, and 482,477 Squared Kms for Zonation. That is 13.2803, 13.2304, 13.2813 percent of the total area respectively.
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-4-1.png}
 
 \hypertarget{correlation-comparison-spearman}{%
 \subsubsection{Correlation comparison (Spearman)}\label{correlation-comparison-spearman}}
@@ -252,9 +245,9 @@ Zonation & 0.6241322 & 0.6690281 & NA\\
 \end{tabular}
 \end{table}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \hypertarget{subsection-2}{%
 \subsection*{Subsection 2}\label{subsection-2}}
