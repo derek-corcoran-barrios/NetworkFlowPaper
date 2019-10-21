@@ -1,0 +1,245 @@
+---
+title: "Target-based site prioritization under climate change using quadratic network flow"
+author: "Derek Corcoran"
+output:
+  bookdown::pdf_document2:
+    keep_tex: true
+    fig_caption: true
+    toc: false
+bibliography: test.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(bookdown)
+library(kableExtra)
+library(knitr)
+library(raster)
+library(rasterVis)
+library(rworldxtra)
+library(sf)
+library(tidyverse)
+
+```
+
+# Introduction
+
+Currently, el 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us; ]. The situation is even wost when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis [@alagador2014shifting; @araujo2004would].
+
+Despite the concern about protected area planning, in a review @jones2016incorporating shows that more than 90% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. In order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected aswell, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors besides taking unto account the effects of climate change, they have to take into account changes in land use and habitat fragmentation in order to evaluate the factibility of the species reaching future available habitat.
+
+There have been several different approaches to try to model biological corridors. There has been approaches using close to 3,000 species over all of the aAmericas [@lawler2013projected], but those models did not take the species dispersal speed into account or use them to build priority areas. On a more local level, there are several studies that focus in one or a few species [@alagador2014shifting; @cushman2013biological; @gregory2014forecasts] which is not enough for planning. There are a few examples that take into account group of species, but in very confined spaces [@beier2007linkage; @phillips2008optimizing; @williams2005planning]. Among this articles, the work of @phillips2008optimizing, incorporates the use of the Network Flow optimization method [@Ahuja93] in order to solve the problem expressed by @williams2005planning, generating a solution 33% more efficient than previous optimization methods, this makes this methodology one of the most promising ways of solving conservation planning problems.
+
+In its traditional use Network flow, gives the best possible solution given constrains [@phillips2008optimizing]. If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. Quadratic Cost Network Flow as implemented in this research gives us alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species. Spatial planning is a complex endeavour where agendas, and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex desicions.
+
+In this article we present a new method of working with network flow un conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation using the Northern Tropical Andes ecorregion as an example.
+
+# Methods
+
+## Area
+
+The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometers arround land areas, the area of study is seen in figure \@ref(fig:MapArea). 
+
+```{r MapArea, cache=TRUE, fig.align='center', fig.cap='Map of Southamerica, the darkened area is the area where the priorization was performed'}
+data("countriesHigh")
+SA <- st_as_sf(countriesHigh) %>% st_crop(xmin = -91.40638889, ymin = -58.09166667, xmax = -30.93750000, ymax = 12.63611111)  %>% dplyr::filter(REGION == "South America and the Caribbean") %>% st_transform("+proj=stere +lat_0=-22.720833333333335 +lon_0=-61.17194444444445")
+sandes <- sf::read_sf("nandes_buff_clip/nandes_buff_clip.shp") %>% st_transform("+proj=stere +lat_0=-22.720833333333335 +lon_0=-61.17194444444445")
+
+ggplot() + geom_sf(data = SA, fill = "darkolivegreen3", color = "white") + geom_sf(data = sandes, fill = "darkgreen", alpha = 0.5) + theme(
+  panel.background = element_rect(fill = "#BFD5E3", colour = "#6D9EC1",
+                                size = 2, linetype = "solid"),
+  panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "white"), 
+  panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                 colour = "white")
+  )
+
+
+```
+
+The studied area is shown in figure 1 and it encompases `r  prettyNum(round(as.numeric(st_area(sandes))/1000000,0), big.mark = ",")` square kilometers
+
+## Species
+
+671 species of plants were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
+
+## GCMs
+
+```{r Diagrama, fig.cap= "All the steps and programs used in the Optimization"}
+knitr::include_graphics("Diag1.png", dpi = 200)
+```
+
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app [@fajardo_javier_2018_2669407], we followed the storylines approach [@zappa2017storylines] and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, adn colder and dryier than the ensemble.
+
+## Niche modeling
+
+For each species the species distribution model was fit using the dismo package [@Hijmans_Dismo], using 50,000 random background points and the maxent algorithm [@phillips2006maximum; @merow2013practical]
+
+
+## Model Description
+
+This model was developed based on the notion of non-overlapping dispersal chains [@williams2005planning], and instead of having a binary solution (to protect or not protect an area), the result will be an index of importance going from zero to one. Here, zero means that there are no chains passing by that spacial point that go from the source to the final destination, and one is a point where chains have to pass through to reach the desired flow.
+In order to do this, we follow Network-flow methods [@Ahuja93] to model the survival and dispersion of species along the space and time, using species distribution models and quadratic flow costs to split the flow evenly across alternative paths. Therefore, the resulting flow across an arc is high only if there are few alternatives to use that edge to achieve the target flow.
+Even when model takes into account protected areas (cost zero) and human habitat such as cities (cost infinite) in the decision making, both were not included in this exercise to simplify the examples. This is a generalist model which only needs the distribution model of the species projected to each time slice and the maximum dispersal distance for each species.
+
+### Model Formulation
+
+The objective is to minimize the cost
+
+$\underset{Quadcost}{\text{minimize}}$
+
+$$\small Quadcost =  \sum_{i=1}^n{(Cost\times Flow_t)^2}$$
+
+$\text{subject to}$
+
+$$\small \text{Initial Flow} = \sum_{i=1}^n{Flow_{t_1}} = \text{Target paths}$$
+
+$$\small \text{Final Flow} = \sum_{i=1}^n{Flow_{t_{final}}} = \text{Target paths}$$
+
+$$\small \text{Flow capacity} = \sum_{i=1}^n{Flow_{(i,t)}} \leq capacity_{(i,t)}$$
+
+
+## Network generation
+
+Ir order to generate the networks de QuadCostAmpl package was used [@Corcoran_Quadcost]
+
+
+## Linear Network FLow
+
+Model
+
+## Quadratic Network Flow
+
+## Zonation
+
+*In the examples above, (a) uses the Present Simple tense to
+describe what is normally done or to describe a standard piece of equipment
+used in the research and (b) uses the Past Simple tense to describe what
+you did yourself.*
+
+*Another diffi culty arises with the passive when you write about the
+procedure you used and compare it with the work of other researchers.
+You can use the Past Simple agentless passive to describe the procedure
+you used (the samples were collected using a suction tube) but you may
+also need to use exactly the same Past Simple agentless passive to describe
+the procedure used by the other researcher whose work you are citing (the
+samples were collected using a suction tube).*
+
+*One way to make sure that your own contribution is clear and easy
+to identify is by marking it with words — perhaps by adding phrases
+like* **In this study**, *the samples were collected using a suction tube or* **In
+our experiments** *the samples were collected using a suction tube, and by
+identifying the procedure used by other researchers with careful references
+at the appropriate place in the sente*
+
+
+
+
+# Results {-}
+
+<!-- Comments should be HTML-style comments -->
+
+## Subsection 1 {-}
+
+You can use `R` chunks directly to plot graphs. 
+
+
+
+
+## Subsection 2 {-}
+
+Frontiers requires figures to be submitted individually, in the same order as
+they are referred to in the manuscript. Figures will then be automatically
+embedded at the bottom of the submitted manuscript. Kindly ensure that each
+table and figure is mentioned in the text and in numerical order. Permission
+must be obtained for use of copyrighted material from other sources (including
+the web). Please note that it is compulsory to follow figure instructions.
+Figures which are not according to the guidelines will cause substantial delay
+during the production process.
+
+
+# Discussion
+
+# Disclosure/Conflict-of-Interest Statement {-}
+
+<!--  
+Frontiers follows the recommendations by the International Committee of Medical
+Journal Editors (http://www.icmje.org/ethical_4conflicts.html) which require
+that all financial, commercial or other relationships that might be perceived by
+the academic community as representing a potential conflict of interest must be
+disclosed. If no such relationship exists, authors will be asked to declare that
+the research was conducted in the absence of any commercial or financial
+relationships that could be construed as a potential conflict of interest. When
+disclosing the potential conflict of interest, the authors need to address the
+following points:
+
+ - Did you or your institution at any time receive payment or services from a
+   third party for any aspect of the submitted work?
+ - Please declare financial relationships with entities that could be perceived
+   to influence, or that give the appearance of potentially influencing, what
+   you wrote in the submitted work.
+ - Please declare patents and copyrights, whether pending, issued, licensed
+   and/or receiving royalties relevant to the work.
+ - Please state other relationships or activities that readers could perceive to
+   have influenced, or that give the appearance of potentially influencing, what
+   you wrote in the submitted work.
+ -->
+
+The authors declare that the research was conducted in the absence of any
+commercial or financial relationships that could be construed as a potential
+conflict of interest.
+
+# Author Contributions {-}
+
+<!--  
+
+When determining authorship the following criteria should be observed:
+
+ - Substantial contributions to the conception or design of the work; or the
+   acquisition, analysis, or interpretation of data for the work; AND
+ - Drafting the work or revising it critically for important intellectual
+   content; AND
+ - Final approval of the version to be published ; AND
+ - Agreement to be accountable for all aspects of the work in ensuring that
+   questions related to the accuracy or integrity of any part of the work are
+   appropriately investigated and resolved.
+
+Contributors who meet fewer than all 4 of the above criteria for authorship
+should not be listed as authors, but they should be acknowledged.
+(http://www.icmje.org/roles_a.html)
+
+-->
+
+The statement about the authors and contributors can be up to several sentences
+long, describing the tasks of individual authors referred to by their initials
+and should be included at the end of the manuscript before the References
+section.
+
+
+# Acknowledgments {-}
+
+Funding:
+
+# Supplemental Data 
+
+Supplementary Material should be uploaded separately on submission, if there are
+Supplementary Figures, please include the caption in the same file as the
+figure. LaTeX Supplementary Material templates can be found in the Frontiers
+LaTeX folder
+
+# References
+
+# Figures {-}
+
+
+# Suplmentary materials
+
+## List of species
+
+```{r Species_list ,cache=TRUE}
+a <- readRDS("Solutionnandes_linear_mp.rds") %>% purrr::reduce(bind_rows) %>% group_by(Spp) %>% summarise(n = n()) %>% arrange(Spp) %>% pull(Spp) %>% str_replace("_", " ")
+```
+
+The species used for the solution were the folowing:
+
+`r a`
