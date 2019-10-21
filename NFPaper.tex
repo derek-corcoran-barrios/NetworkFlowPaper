@@ -111,9 +111,9 @@ Despite the concern about protected area planning, in a review Jones et al. (201
 
 There have been several different approaches to try to model biological corridors. There has been approaches using close to 3,000 species over all of the aAmericas (Lawler et al. 2013), but those models did not take the species dispersal speed into account or use them to build priority areas. On a more local level, there are several studies that focus in one or a few species (Alagador, Cerdeira, and Araújo 2014; Cushman et al. 2013; Gregory et al. 2014) which is not enough for planning. There are a few examples that take into account group of species, but in very confined spaces (Beier, Majka, and Bayless 2007; Phillips et al. 2008; Williams et al. 2005). Among this articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, and Orlin 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods, this makes this methodology one of the most promising ways of solving conservation planning problems.
 
-In its traditional use Network flow, gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. Quadratic Cost Network Flow as implemented in this research gives us alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species. Spatial planning is a complex endeavour where agendas, and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex desicions.
+In its traditional use Network flow, gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. Quadratic Cost Network Flow as implemented in this research gives us alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas, and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex desicions.
 
-In this article we present a new method of working with network flow un conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation using the Northern Tropical Andes ecorregion as an example.
+In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation using the Northern Tropical Andes ecorregion as an example.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -121,7 +121,7 @@ In this article we present a new method of working with network flow un conserva
 \hypertarget{area}{%
 \subsection{Area}\label{area}}
 
-The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometers arround land areas, the area of study is seen in figure \ref{fig:MapArea}.
+The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometers arround land areas.
 
 \begin{figure}
 
@@ -132,7 +132,7 @@ The studied area was the Northern Tropical Andes, consisting of the countries of
 \caption{Map of Southamerica, the darkened area is the area where the priorization was performed}\label{fig:MapArea}
 \end{figure}
 
-The studied area is shown in figure 1 and it encompases 3,632,762 square kilometers
+The studied area is shown in figure \ref{fig:MapArea} and it encompases 3,632,762 square kilometers
 
 \hypertarget{species}{%
 \subsection{Species}\label{species}}
@@ -146,7 +146,7 @@ The studied area is shown in figure 1 and it encompases 3,632,762 square kilomet
 \includegraphics[width=4.39in]{Diag1} \caption{All the steps and programs used in the Optimization}\label{fig:Diagrama}
 \end{figure}
 
-Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the storylines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, adn colder and dryier than the ensemble.
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the storylines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble.
 
 \hypertarget{niche-modeling}{%
 \subsection{Niche modeling}\label{niche-modeling}}
@@ -217,11 +217,44 @@ at the appropriate place in the sente}
 \section*{Results}\label{results}}
 \addcontentsline{toc}{section}{Results}
 
-\hypertarget{subsection-1}{%
-\subsection*{Subsection 1}\label{subsection-1}}
-\addcontentsline{toc}{subsection}{Subsection 1}
+\hypertarget{quadratic-network-flow-1}{%
+\subsection{Quadratic Network Flow}\label{quadratic-network-flow-1}}
 
-You can use \texttt{R} chunks directly to plot graphs.
+\hypertarget{linear-network-flow-1}{%
+\subsection{Linear Network Flow}\label{linear-network-flow-1}}
+
+\hypertarget{zonation-1}{%
+\subsection{Zonation}\label{zonation-1}}
+
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-3-1.png}
+
+\hypertarget{efficiency-comparison-number-of-cells}{%
+\subsubsection{Efficiency comparison (Number of cells)}\label{efficiency-comparison-number-of-cells}}
+
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-4-1.png}
+In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 482,440 Squared Kms, 480,630 Squared Kms for linear Network Flow ,and 482,477 Squared Kms for Zonation.
+
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{correlation-comparison-spearman}{%
+\subsubsection{Correlation comparison (Spearman)}\label{correlation-comparison-spearman}}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+rowname & Linear.NF & Quadratic.NF & Zonation\\
+\midrule
+Linear.NF & NA & 0.9211996 & 0.6241322\\
+Quadratic.NF & 0.9211996 & NA & 0.6690281\\
+Zonation & 0.6241322 & 0.6690281 & NA\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \hypertarget{subsection-2}{%
 \subsection*{Subsection 2}\label{subsection-2}}
