@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.2)  21 OCT 2019 10:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.2)  21 OCT 2019 14:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -752,67 +752,63 @@ t line 128.
 <Diag1.png, id=117, 661.72218pt x 351.56343pt>
 File: Diag1.png Graphic file (type png)
 <use Diag1.png>
-Package pdftex.def Info: Diag1.png  used on input line 146.
+Package pdftex.def Info: Diag1.png  used on input line 148.
 (pdftex.def)             Requested size: 317.25954pt x 168.5554pt.
 [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.157 ...el Description}\label{model-description}}
-                                                   <./NFPaper_files/figure-late
-x/MapArea-1.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 168.
+l.157 
+       <./NFPaper_files/figure-latex/MapArea-1.pdf>]
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 170.
 
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 168.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 170.
 
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 168
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 170
 .
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 168
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 170
 .
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 168.
+(Font)              <10> on input line 170.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 168.
+(Font)              <7> on input line 170.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 168.
-LaTeX Font Info:    Try loading font information for U+msa on input line 168.
+(Font)              <5> on input line 170.
+LaTeX Font Info:    Try loading font information for U+msa on input line 170.
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/home/derek/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 168.
+LaTeX Font Info:    Try loading font information for U+msb on input line 170.
 (/home/derek/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/home/derek/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 170.
+LaTeX Font Warning: Command \small invalid in math mode on input line 172.
 
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 174.
-
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 174.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 174.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 176.
 
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 176.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 176.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 178.
 
@@ -821,31 +817,34 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.186 ...Network FLow}\label{linear-network-flow}}
+l.178 ...Flow_{t_{final}}} = \text{Target paths}\]
                                                    <./Diag1.png>]
-<NFPaper_files/figure-latex/AllSols-1.png, id=157, 469.755pt x 325.215pt>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 180.
+
+<NFPaper_files/figure-latex/AllSols-1.png, id=155, 469.755pt x 325.215pt>
 File: NFPaper_files/figure-latex/AllSols-1.png Graphic file (type png)
 <use NFPaper_files/figure-latex/AllSols-1.png>
 Package pdftex.def Info: NFPaper_files/figure-latex/AllSols-1.png  used on inpu
-t line 220.
+t line 222.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [4]
 
-LaTeX Warning: Reference `fig:AllSols' on page 5 undefined on input line 222.
+LaTeX Warning: Reference `fig:AllSols' on page 5 undefined on input line 224.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 225.
+(hyperref)                than one, level fixed on input line 227.
 
 <NFPaper_files/figure-latex/unnamed-chunk-3-1.png, id=168, 469.755pt x 325.215p
 t>
 File: NFPaper_files/figure-latex/unnamed-chunk-3-1.png Graphic file (type png)
 <use NFPaper_files/figure-latex/unnamed-chunk-3-1.png>
 Package pdftex.def Info: NFPaper_files/figure-latex/unnamed-chunk-3-1.png  used
- on input line 227.
+ on input line 229.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--229
+Underfull \hbox (badness 10000) in paragraph at lines 229--231
 []
  []
 
@@ -855,7 +854,7 @@ t>
 File: NFPaper_files/figure-latex/unnamed-chunk-4-1.png Graphic file (type png)
 <use NFPaper_files/figure-latex/unnamed-chunk-4-1.png>
 Package pdftex.def Info: NFPaper_files/figure-latex/unnamed-chunk-4-1.png  used
- on input line 230.
+ on input line 232.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [6 <./NFPaper_files/figure-latex/unnamed-chunk-3-1.png (PNG copy)>]
 <NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf, id=179, 469.755pt x 325.215p
@@ -863,7 +862,7 @@ t>
 File: NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf  used
- on input line 248.
+ on input line 250.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [7 <./NFPaper_files/figure-latex/unnamed-chunk-4-1.png (PNG copy)>]
 <NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf, id=186, 469.755pt x 325.215p
@@ -871,22 +870,22 @@ t>
 File: NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf  used
- on input line 250.
+ on input line 252.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [8 <./NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf>] [9 <./NFPaper_files/fi
 gure-latex/unnamed-chunk-7-1.pdf>] [10] [11] [12] [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 393.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 395.
 [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 393.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 395.
 (./NFPaper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 393.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 393.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 395.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 395.
 Package rerunfilecheck Info: File `NFPaper.out' has not changed.
 (rerunfilecheck)             Checksum: 020838FF756F8A9C77380867A116AB0D;3375.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 393.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 395.
  ) 
 Here is how much of TeX's memory you used:
  14198 strings out of 494553
@@ -912,7 +911,7 @@ ts/type1/public/lm/lmr7.pfb></home/derek/.TinyTeX/texmf-dist/fonts/type1/public
 /lm/lmr9.pfb></home/derek/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
 </home/derek/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></home/derek/
 .TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on NFPaper.pdf (14 pages, 1502421 bytes).
+Output written on NFPaper.pdf (14 pages, 1502694 bytes).
 PDF statistics:
  340 PDF objects out of 1000 (max. 8388607)
  296 compressed objects within 3 object streams

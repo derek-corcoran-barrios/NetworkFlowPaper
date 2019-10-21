@@ -65,6 +65,8 @@ The studied area is shown in figure \@ref(fig:MapArea) and it encompases `r  pre
 
 ## GCMs
 
+First GCMComparer was used in order to select the 4 GCMs, then R was Used to generate the decadal Distribu
+
 ```{r Diagrama, fig.cap= "All the steps and programs used in the Optimization"}
 knitr::include_graphics("Diag1.png", dpi = 200)
 ```
