@@ -105,15 +105,32 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Currently, el 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns (Rodrigues et al. 2004; Jenkins et al. 2015). The situation is even wost when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
+Currently, 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns (Rodrigues et al. 2004; Jenkins et al. 2015). The situation is even worst when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future because of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
 
-Despite the concern about protected area planning, in a review Jones et al. (2016) shows that more than 90\% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. In order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected aswell, that is the biological corridors that they will use (Nuñez et al. 2013; Rosenberg, Noon, and Meslow 1997). Thus the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al. 2007). In that context, biological corridors besides taking unto account the effects of climate change, they have to take into account changes in land use and habitat fragmentation in order to evaluate the factibility of the species reaching future available habitat.
+Despite the concern about protected area planning, a review Jones et al. (2016) shows that more than 90\% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritizr and Zonation (Di Minin et al. 2014; Hanson et al. 2019). Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species' capacity to disperse.
 
-There have been several different approaches to try to model biological corridors. There has been approaches using close to 3,000 species over all of the aAmericas (Lawler et al. 2013), but those models did not take the species dispersal speed into account or use them to build priority areas. On a more local level, there are several studies that focus in one or a few species (Alagador, Cerdeira, and Araújo 2014; Cushman et al. 2013; Gregory et al. 2014) which is not enough for planning. There are a few examples that take into account group of species, but in very confined spaces (Beier, Majka, and Bayless 2007; Phillips et al. 2008; Williams et al. 2005). Among this articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, and Orlin 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods, this makes this methodology one of the most promising ways of solving conservation planning problems.
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\toprule
+ & Network flow & Zonation & Migclim & Prioritizr\\
+\midrule
+Considers more than 2 time-slices & Yes & No & Yes & No\\
+Can add species to the solutions afterwards & Yes & No & Yes & No\\
+Keep track of species dispersal routes & Yes & Yes & Yes & No\\
+Solves for conservartion targets & Yes & Yes & No & Yes\\
+Considers cost as part of the solution & Yes & Yes & No & Yes\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-In its traditional use Network flow, gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. Quadratic Cost Network Flow as implemented in this research gives us alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas, and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex desicions.
+However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use (Nuñez et al. 2013; Rosenberg, Noon, and Meslow 1997). Thus, the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al. 2007). In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
 
-In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation using the Northern Tropical Andes ecorregion as an example.
+There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species (Alagador, Cerdeira, and Araújo 2014; Cushman et al. 2013; Gregory et al. 2014) or group of species (Beier, Majka, and Bayless 2007; Phillips et al. 2008; Williams et al. 2005), not being able to be use for planning for lack of species or be in confined spaces, respectibly. A continental approach was made by Lawler et al. (2013), who modeled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, and Orlin 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
+
+In its traditional use, Network flow gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex decisions.
+
+In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation, using the Northern Tropical Andes ecorregion as an example.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -142,7 +159,9 @@ The studied area is shown in figure \ref{fig:MapArea} and it encompases 3,632,76
 \hypertarget{gcms}{%
 \subsection{GCMs}\label{gcms}}
 
-First GCMComparer was used in order to select the 4 GCMs, then R was Used to generate the decadal Distribu
+First GCMComparer was used in order to select the 4 GCMs as shown in figure \ref{fig:Diagrama}, then R was used to generate distribution models for each GCM using the Dismo Package. Then each model was projected as a binary response (presence-absense) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
+
+For each Species, a network of dispersion into each timeslice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
 
 \begin{figure}
 \includegraphics[width=4.39in]{Diag1} \caption{All the steps and programs used in the Optimization}\label{fig:Diagrama}
@@ -221,15 +240,29 @@ at the appropriate place in the sente}
 
 \includegraphics{NFPaper_files/figure-latex/AllSols-1.png}
 
-The results of all three algorithms is shonw in figure \ref{fig:AllSols}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{For methods:} Since one of the main objectives of prorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are zome important
+\end{itemize}
+
+The results of all three algorithms is shonw in figure \ref{fig:AllSols}, at first glance, the thre algorithms havee very similar results, however, when we look at the Spearman correlation of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \ref{fig:LocalCorr}), we see that for the most part, the local correlations are all mostly possitive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local priorization, that is mostly localized
+
+when we look at the boxplot of local correlation values (figure \ref{fig:Boxplot}), we see that the lower whiskers in the comparizon of both NetworkFlow methods with Zonation, are bellow zero
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{For discusion:} One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow.
+\end{itemize}
 
 \hypertarget{efficiency-comparison-number-of-cells}{%
 \subsubsection{Efficiency comparison (Number of cells)}\label{efficiency-comparison-number-of-cells}}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-3-1.png}
-In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 482,440 Squared Kms, 480,630 Squared Kms for linear Network Flow, and 482,477 Squared Kms for Zonation. That is 13.2803, 13.2304, 13.2813 percent of the total area respectively.
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-5-1.png}
+In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 22,671 cells, 22,586 cells for linear Network Flow, and 22,671 cells for Zonation.
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-4-1.png}
+\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-6-1.png}
 
 \hypertarget{correlation-comparison-spearman}{%
 \subsubsection{Correlation comparison (Spearman)}\label{correlation-comparison-spearman}}
@@ -247,22 +280,17 @@ Zonation & 0.6241322 & 0.6690281 & NA\\
 \end{tabular}
 \end{table}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-6-1.pdf}
+\begin{figure}
+\centering
+\includegraphics{NFPaper_files/figure-latex/LocalCorr-1.pdf}
+\caption{\label{fig:LocalCorr}Box plot of local correlations between all three different methods of priorization}
+\end{figure}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-7-1.pdf}
-
-\hypertarget{subsection-2}{%
-\subsection*{Subsection 2}\label{subsection-2}}
-\addcontentsline{toc}{subsection}{Subsection 2}
-
-Frontiers requires figures to be submitted individually, in the same order as
-they are referred to in the manuscript. Figures will then be automatically
-embedded at the bottom of the submitted manuscript. Kindly ensure that each
-table and figure is mentioned in the text and in numerical order. Permission
-must be obtained for use of copyrighted material from other sources (including
-the web). Please note that it is compulsory to follow figure instructions.
-Figures which are not according to the guidelines will cause substantial delay
-during the production process.
+\begin{figure}
+\centering
+\includegraphics{NFPaper_files/figure-latex/Boxplot-1.pdf}
+\caption{\label{fig:Boxplot}Box plot of local correlations between all three different methods of priorization}
+\end{figure}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -315,6 +343,53 @@ The species used for the solution were the folowing:
 
 Aa maderoi, Abutilon ibarrense, Achyrocline crassiceps, Aciachne flagellifera, Aechmea drakeana, Aegiphila pennellii, Aequatorium sinuatifolium, Aequatorium verrucosum, Aetheolaena involucrata, Aetheolaena lingulata, Ageratina asclepiadea, Ageratina dendroides, Ageratina gynoxoides, Ageratina pseudochilca, Ageratina theaefolia, Ageratina vacciniaefolia, Agouticarpa grandistipula, Agrostis boyacensis, Agrostis foliata, Agrostis trichodes, Aiphanes grandis, Altensteinia virescens, Amazilia castaneiventris, Anagallis foemina, Anastrophyllum nigrescens, Andigena laminirostris, Anomobryum prostratum, Anotomys leander, Anredera brachystachys, Anthopterus schultzeae, Anthurium aristatum, Anthurium carchiense, Anthurium cordiforme, Anthurium flavolineatum, Anthurium giganteum, Anthurium gualeanum, Anthurium herthae, Anthurium lancea, Anthurium membranaceum, Anthurium morae, Anthurium palenquense, Anthurium pallatangense, Anthurium pedunculare, Anthurium pendulispadix, Anthurium phyllobaris, Anthurium rimbachii, Anthurium rugulosum, Anthurium wattii, Aphanactis jamesoniana, Aphanactis ollgaardii, Aphanactis piloselloides, Aragoa abietina, Aragoa cundinamarcensis, Aragoa occidentalis, Arcytophyllum aristatum, Arenaria venezuelana, Aristeguietia glutinosa, Arracacia moschata, Arremon phaeopleurus, Astragalus geminiflorus, Astragalus sprucei, Atlapetes flaviceps, Atlapetes leucopis, Atractus crassicaudatus, Atractus lasallei, Axinaea merianiae, Axinaea sodiroi, Azorella aretioides, Azorella cuatrecasasii, Azorella pedunculata, Baccharis revoluta, Baccharis rupicola, Baccharis teindalensis, Badilloa salicina, Bangsia aureocincta, Bangsia edwardsi, Bangsia rothschildi, Bartsia laticrenata, Bartsia orthocarpiflora, Bartsia santolinifolia, Bartsia stricta, Bauhinia stenantha, Begonia tiliifolia, Belloa radians, Berberis goudotii, Berberis hallii, Berberis rigidifolia, Berberis verticillata, Besleria angustiflora, Blakea glandulosa, Blakea hispida, Blakea oldemanii, Blakea rotundifolia, Bolborhynchus ferrugineifrons, Bomarea glaucescens, Bomarea linifolia, Bomarea patacocensis, Bomarea uncifolia, Brachtia andina, Brachyotum alpinum, Brachyotum confertum, Brachyotum fictum, Brachyotum gleasonii, Brachyotum harlingii, Brachyotum jamesonii, Brachyotum strigosum, Brayopsis colombiana, Breutelia squarrosa, Breutelia trianae, Browneopsis disepala, Brugmansia aurea, Brunellia boqueronensis, Brunellia colombiana, Bucquetia glutinosa, Buddleja pichinchensis, Burmeistera montipomum, Calamagrostis aurea, Calamagrostis effusa, Calamagrostis fibrovaginata, Calamagrostis guamanensis, Calamagrostis mollis, Calamagrostis podophora, Calceolaria dilatata, Calceolaria ferruginea, Calceolaria hyssopifolia, Calceolaria lamiifolia, Calceolaria pedunculata, Calceolaria purpurascens, Calceolaria rosmarinifolia, Calliergonella cuspidata, Campylopus argyrocaulon, Campylopus cleefii, Campylopus cucullatifolius, Campylopus edithae, Campylopus incertus, Campylopus pittieri, Campylopus subconcolor, Carex amicta, Casearia mexiae, Castilleja nubigena, Castratella piloselloides, Centradeniastrum album, Centropogon aequatorialis, Centropogon baezanus, Centropogon glabrifilis, Centropogon medusa, Centropogon nigricans, Centropogon subandinus, Cerastium floccosum, Ceratostema alatum, Cestrum peruvianum, Chalcostigma heteropogon, Chorisodontium speciosum, Chromolaena bullata, Chusquea subulata, Cinclodes excelsior, Cistothorus apolinari, Cistothorus meridae, Citharexylum sulcatum, Clavija eggersiana, Clethra crispa, Clinopodium nubigenum, Clinopodium taxifolium, Clinopodium tomentosum, Clusia callejasii, Coespeletia moritziana, Coespeletia spicata, Coespeletia thyrsiformis, Coespeletia timotensis, Colignonia pentoptera, Columnea albiflora, Columnea capillosa, Columnea ciliata, Columnea eubracteata, Conirostrum rufum, Conyza cardaminifolia, Conyza trihecatactis, Coursetia gracilis, Coussarea pilosiflora, Cranichis antioquiensis, Cranioleuca hellmayri, Critoniopsis occidentalis, Critoniopsis palaciosii, Critoniopsis sodiroi, Cronquistianthus niveus, Croton elegans, Croton rimbachii, Cryptotis equatoris, Culcitium nivale, Cyanolyca pulchra, Cynanchum microphyllum, Dalea humifusa, Dasyphyllum popayanense, Dendrophorbium lloense, Diglossa gloriosa, Diglossa gloriosissima, Diglossa indigotica, Diplostephium alveolatum, Diplostephium bicolor, Diplostephium cayambense, Diplostephium cinerascens, Diplostephium ericoides, Diplostephium frontinense, Diplostephium glandulosum, Diplostephium hartwegii, Diplostephium ochraceum, Diplostephium phylicoides, Diplostephium revolutum, Diplostephium rhododendroides, Diplostephium rhomboidale, Diplostephium rupestre, Diplostephium schultzii, Diplostephium spinulosum, Diplostephium tenuifolium, Diplostephium tolimense, Diplostephium violaceum, Diplostichum longirostre, Distichia acicularis, Ditrichum submersum, Draba aretioides, Draba hallii, Draba obovata, Draba splendens, Draba spruceana, Dracula sodiroi, Drepanocladus exannulatus, Drymonia crenatiloba, Drymonia laciniosa, Dysithamnus occidentalis, Elaphoglossum antisanae, Elaphoglossum heliconiifolium, Elaphoglossum yatesii, Elasis hirsuta, Elatine ecuadoriensis, Elleanthus gastroglottis, Elleanthus petrogeiton, Epidendrum englerianum, Epidendrum marsupiale, Epidendrum pallatangae, Epidendrum pichinchae, Epidendrum porphyreum, Eragrostis condensata, Erigeron ecuadoriensis, Eriocnemis cupreoventris, Eriocnemis derbyi, Eriocnemis mosquera, Eryngium humboldtii, Espeletia argentea, Espeletia barclayana, Espeletia batata, Espeletia boyacensis, Espeletia brassicoidea, Espeletia cleefii, Espeletia congestiflora, Espeletia conglomerata, Espeletia frontinoensis, Espeletia grandiflora, Espeletia hartwegiana, Espeletia killipii, Espeletia lopezii, Espeletia murilloi, Espeletia pycnophylla, Espeletia schultesiana, Espeletia schultzii, Espeletia semiglobulata, Espeletia summapacis, Espeletia tunjana, Espeletia uribei, Espeletiopsis colombiana, Espeletiopsis corymbosa, Espeletiopsis pannosa, Espeletiopsis petiolata, Eudema nubigena, Euphonia concinna, Festuca andicola, Festuca chimborazensis, Festuca glumosa, Festuca subulifolia, Festuca vaginalis, Fuchsia ampliata, Fuchsia caucana, Fuchsia dependens, Fuchsia hartwegii, Fuchsia macrostigma, Fuchsia orientalis, Fuchsia sessilifolia, Fuchsia sylvatica, Fuchsia vulcanica, Gasteranthus columbianus, Gasteranthus lateralis, Gasteranthus leopardus, Gasteranthus quitensis, Gaultheria cordifolia, Geissanthus argutus, Genista monspessulana, Gentianella cerastioides, Gentianella cernua, Gentianella corymbosa, Gentianella foliosa, Gentianella hirculus, Gentianella hyssopifolia, Gentianella nummulariifolia, Gentianella rapunculoides, Gentianella rupicola, Geonoma divisa, Geranium maniculatum, Geranium multiceps, Geranium multipartitum, Glaucidium nubicola, Gongylolepis jauaensis, Grallaria alleni, Grallaria flavotincta, Grallaria milleri, Grallaria rufocinerea, Grallaricula lineifrons, Grallaricula loricata, Grosvenoria hypargyra, Grosvenoria rimbachii, Gustavia longifuniculata, Gustavia serrata, Guzmania jaramilloi, Guzmania lehmanniana, Guzmania vanvolxemii, Guzmania wittmackii, Gynoxys acostae, Gynoxys hirsuta, Gynoxys laurata, Gynoxys miniphylla, Gynoxys parvifolia, Gynoxys pendula, Gynoxys sodiroi, Gynoxys stuebelii, Gynoxys tolimensis, Halenia adpressa, Halenia gentianoides, Halenia pulchella, Haplophaedia lugens, Hebeclinium tetragonum, Hedyosmum parvifolium, Heliangelus strophianus, Heliconia dielsiana, Heppiella verticillata, Hesperomeles goudotiana, Hieracium avilae, Huperzia capellae, Huperzia cruenta, Huperzia cumingii, Huperzia hystrix, Huperzia lindenii, Huperzia llanganatensis, Huperzia polydactyla, Huperzia rufescens, Huperzia transilla, Huperzia unguiculata, Hypericum decandrum, Hypericum goyanesii, Hypericum myricariifolium, Hypericum prostratum, Hypericum quitense, Hypochaeris setosa, Inga extra-nodis, Isoetes andina, Isoetes bischlerae, Isoetes boyacensis, Isoetes novo-granadensis, Isoetes palmeri, Jamesonia bogotensis, Jamesonia cinnamomea, Jamesonia pulchra, Juncus breviculmis, Juncus echinocephalus, Juncus ecuadoriensis, Lachemilla angustata, Lachemilla hirta, Lachemilla hispidula, Lachemilla holosericea, Lachemilla jamesonii, Lachemilla nivalis, Lachemilla rupestris, Lachemilla tanacetifolia, Lasiocephalus ovatus, Ledothamnus luteus, Lepanthes effusa, Lepanthes pilosella, Lepechinia vulcanicola, Lepidozia macrocolea, Leptodontium erythroneuron, Leptoscyphus cleefii, Leptotila conoveri, Liabum saloyense, Llerasia hypoleuca, Loricaria antisanensis, Loricaria complanata, Loricaria ilinissae, Lourteigia humilis, Lourteigia microphylla, Lupinus alopecuroides, Lupinus colombiensis, Lupinus smithianus, Lysipomia montioides, Lysipomia muscoides, Macleania bullata, Macleania coccoloboides, Macleania cordifolia, Macleania ericae, Macleania loeseneriana, Macrocarpaea glabra, Margarornis stellatus, Masdevallia ophioglossa, Matisia palenquiana, Mauritiella macroclada, Melothria longituba, Melpomene assurgens, Melpomene sodiroi, Meriania heptamera, Meriania hernandoi, Metallura baroni, Metallura williami, Mezobromelia lyman-smithii, Miconia aguirrei, Miconia biappendiculata, Miconia chlorocarpa, Miconia dielsii, Miconia glandulistyla, Miconia hymenanthera, Miconia nodosa, Miconia pernettifolia, Miconia pichinchensis, Miconia psychrophila, Miconia scutata, Miconia summa, Miconia turgida, Mimosa quitensis, Mimosa townsendii, Mona meridensis, Monnina crassifolia, Monnina equatoriensis, Monnina obtusifolia, Monnina pseudopilosa, Monnina revoluta, Monnina sodiroana, Monnina tenuifolia, Monticalia arbutifolia, Monticalia peruviana, Monticalia vaccinioides, Morella singularis, Muscisaxicola alpinus, Mutisia grandiflora, Mutisia microphylla, Mutisia sodiroi, Myioborus albifrons, Myrrhidendron glaucescens, Myrsine panamensis, Niphogeton azorelloides, Niphogeton glaucescens, Niphogeton josei, Notopleura marginata, Nototriche jamesonii, Nototriche phyllanthos, Odontoglossum hallii, Odontophorus atrifrons, Odontophorus melanonotus, Oncidium serratum, Opuntia soederstromiana, Oreobolus cleefii, Oreopanax corazonensis, Oreopanax ecuadorensis, Oreopanax ellsworthii, Oreopanax grandifolius, Oreopanax mutisianus, Oreopanax nigrum, Oreopanax palamophyllus, Oreopanax ruizanus, Oreothraupis arremonops, Oreotrochilus chimborazo, Ossaea sessilifolia, Oxypogon guerinii, Paepalanthus alpinus, Paepalanthus karstenii, Paepalanthus lodiculoides, Palicourea prodiga, Palicourea sodiroi, Palicourea subalatoides, Pappobolus imbaburensis, Paspalum hirtum, Passiflora adulterina, Passiflora crispolanata, Passiflora cuatrecasasii, Passiflora jamesonii, Passiflora roseorum, Passiflora trinervia, Pedicularis incurva, Pentacalia abietina, Pentacalia americana, Pentacalia arbutifolia, Pentacalia flosfragrans, Pentacalia guadalupe, Pentacalia ledifolia, Pentacalia nitida, Pentacalia pulchella, Pentacalia reissiana, Pentacalia vaccinioides, Pentacalia vernicosa, Pentagonia grandiflora, Peperomia fuscipunctata, Peperomia miqueliana, Pernettya hirta, Phalcoboenus carunculatus, Philodendron oligospermum, Philodendron rugosum, Philonotis andina, Pilea gallowayana, Pinguicula elongata, Piper laguna-cochanum, Piper sodiroi, Piper subflavum, Pipreola jucunda, Pitcairnia commixta, Pitcairnia cosangaensis, Pitcairnia fusca, Pittosporum undulatum, Plagiocheilus frigidus, Plagiocheilus solivaeformis, Pleurothallis ensata, Pleurothallis macra, Pleurothallis truncata, Plutarchia guascensis, Poa cucullata, Poa paramoensis, Poa pauciflora, Polylepis lanuginosa, Polylepis quadrijuga, Polylepis reticulata, Polypodium mindense, Polypodium monosorum, Polypodium segregatum, Polytrichadelphus ciliatus, Pouteria capacifolia, Prunus antioquensis, Prunus herthae, Psammisia debilis, Psammisia occidentalis, Psammisia sclerantha, Psychotria boqueronensis, Psychotria cuatrecasasii, Puya glomerifera, Puya goudotiana, Puya nitida, Puya santosii, Puya trianae, Pyrrhura hoematotis, Racinaea subalata, Rallus semiplumbeus, Ranunculus nubigenus, Renealmia fragilis, Renealmia sessilifolia, Rhodospatha densinervia, Rhodostemonodaphne laxa, Rhynchospora paramora, Ribes hirtum, Ribes lehmannii, Rubus choachiensis, Rubus gachetensis, Ruilopezia atropurpurea, Ruilopezia marcescens, Rumex tolimensis, Saguinus leucopus, Salvia pichinchensis, Saurauia chiliantha, Saurauia crassisepala, Saurauia omichlophila, Saurauia peduncularis, Saurauia pseudostrigillosa, Schefflera acaropunctata, Schefflera lasiogyne, Schefflera marginata, Schefflera ramosissima, Scorpidium scorpioides, Scytalopus griseicollis, Scytalopus rodriguezi, Scytalopus vicinior, Senecio culcitioides, Senecio formosoides, Senecio hypsobates, Senecio leucanthemoides, Senecio madagascariensis, Senecio niveoaureus, Senecio subruncinatus, Setaria cernua, Siparuna croatii, Siparuna palenquensis, Siphocampylus affinis, Siphocampylus brevicalyx, Siphocampylus columnae, Solanum crinitipes, Solanum paucijugum, Sorocea sarcocarpa, Sparrmannia africana, Sphaeradenia hamata, Sphaeradenia horrida, Sphagnum compactum, Sphagnum oxyphyllum, Sphyrospermum boekei, Sphyrospermum grandifolium, Sporobolus bogotensis, Stachys bogotensis, Stachys elliptica, Stelis columnaris, Stelis piperina, Stellaria recurvata, Stenospermation longifolium, Stilpnophyllum grandifolium, Stilpnophyllum oellgaardii, Stipa milleana, Stipa rosea, Symphyogyna bogotensis, Symplocos cundinamarcensis, Symplocos rhomboidea, Symplocos theiformis, Synallaxis castanea, Synallaxis subpudica, Syntrichia andicola, Tagetes zypaquirensis, Tangara rufigenis, Telipogon nervosus, Ternstroemia cleistogama, Terpsichore heteromorpha, Terpsichore pichinchae, Tetragastris varians, Thelypteris rigescens, Themistoclesia epiphytica, Theobroma gileri, Thibaudia andrei, Thibaudia grantii, Thibaudia parvifolia, Thomasomys hylophilus, Thomasomys niveipes, Thryophilus nicefori, Tibouchina gleasoniana, Tibouchina paleacea, Tibouchina pendula, Tillandsia emergens, Tillandsia incarnata, Tillandsia lajensis, Tillandsia secunda, Tillandsia superba, Tillandsia truncata, Tournefortia ramosissima, Uncinia paludosa, Uniola condensata, Urothraupis stolzmanni, Urtica longispica, Valeriana adscendens, Valeriana arborea, Valeriana bracteata, Valeriana tatamana, Valeriana tomentosa, Verbesina brachypoda, Verbesina latisquama, Verbesina lloensis, Verbesina sodiroi, Viburnum anabaptista, Viburnum antioquiense, Vigna venusta, Viola glandularis, Vireo masteri, Weinmannia polyphylla, Wettinia anomala, Xenophyllum crassum, Zanthoxylum lepidopteriphilum, Zygodon pichinchensis
 
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+ --\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
+--\textgreater{}
+
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-Ahuja93}{}%
 Ahuja, Ravindra K., Thomas L. Magnanti, and James B. Orlin. 1993. \emph{Network Flows: Theory, Algorithms, and Applications}. Englewood Cliffs, NJ: Prentice Hall.
@@ -337,6 +412,9 @@ Corcoran, Derek, and Javier Fajardo. 2019. \emph{QuadCostAmpl: Transforms a Stac
 \leavevmode\hypertarget{ref-cushman2013biological}{}%
 Cushman, Samuel A, Brad McRae, Frank Adriaensen, Paul Beier, Mark Shirley, and Kathy Zeller. 2013. ``Biological Corridors and Connectivity {[}Chapter 21{]}.'' \emph{In: Macdonald, DW; Willis, KJ, Eds. Key Topics in Conservation Biology 2. Hoboken, NJ: Wiley-Blackwell. P. 384-404.} Wiley Online Library, 384--404.
 
+\leavevmode\hypertarget{ref-di2014quick}{}%
+Di Minin, Enrico, Victoria Veach, Joona Lehtomäki, Federico Montesino Pouzols, Atte Moilanen, and others. 2014. ``A Quick Introduction to Zonation.'' Helsingin yliopisto.
+
 \leavevmode\hypertarget{ref-fajardo_javier_2018_2669407}{}%
 Fajardo, Javier, Derek Corcoran, Patrick Roehrdanz, Lee Hannah, and Pablo Marquet. 2018. \url{https://doi.org/10.5281/zenodo.2669407}.
 
@@ -345,6 +423,9 @@ Gregory, Stephen D, Marc Ancrenaz, Barry W Brook, Benoit Goossens, Raymond Alfre
 
 \leavevmode\hypertarget{ref-hannah2007protected}{}%
 Hannah, Lee, Guy Midgley, Sandy Andelman, Miguel Araújo, Greg Hughes, Enrique Martinez-Meyer, Richard Pearson, and Paul Williams. 2007. ``Protected Area Needs in a Changing Climate.'' \emph{Frontiers in Ecology and the Environment} 5 (3). Wiley Online Library: 131--38.
+
+\leavevmode\hypertarget{ref-Hanson2019}{}%
+Hanson, Jeffrey O, Richard Schuster, Nina Morrell, Matthew Strimas-Mackey, Matthew E Watts, Peter Arcese, Joseph Bennett, and Hugh P Possingham. 2019. \emph{Prioritizr: Systematic Conservation Prioritization in R}. \url{https://CRAN.R-project.org/package=prioritizr}.
 
 \leavevmode\hypertarget{ref-Hijmans_Dismo}{}%
 Hijmans, Robert J., Steven Phillips, John Leathwick, and Jane Elith. 2017. \emph{Dismo: Species Distribution Modeling}. \url{https://CRAN.R-project.org/package=dismo}.

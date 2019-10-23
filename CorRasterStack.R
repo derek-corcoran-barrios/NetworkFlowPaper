@@ -26,7 +26,7 @@ Sols <- Sols*MASK*MASK2
 names(Sols) <- c("Quadratic NF", "Linear NF", "Zonation")
 
 CORRINDEX <- expand.grid(First = c(1:3), Second = c(1:3))
-CORRNAME <- expand.grid(First = c("Quadratic NF", "Linear NF", "Zonation"), Second = c("Quadratic NF", "Linear NF", "Zonation")) %>% mutate(layer = paste(First, Second, sep = "_")) 
+CORRNAME <- expand.grid(First = c("Quad_NF", "Ln_NF", "Zon"), Second = c("Quad_NF", "Ln_NF", "Zon")) %>% mutate(layer = paste(First, Second, sep = "_")) 
 
 CORRSTACK <- list()
 

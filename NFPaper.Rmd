@@ -24,15 +24,26 @@ RasterSolsnandes <- readRDS("RasterSolsnandes.rds")
 
 # Introduction
 
-Currently, el 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us]. The situation is even wost when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future beause of the climate crisis [@alagador2014shifting; @araujo2004would].
+Currently, 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us]. The situation is even worst when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future because of the climate crisis [@alagador2014shifting; @araujo2004would].
 
-Despite the concern about protected area planning, in a review @jones2016incorporating shows that more than 90% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. In order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected aswell, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors besides taking unto account the effects of climate change, they have to take into account changes in land use and habitat fragmentation in order to evaluate the factibility of the species reaching future available habitat.
+Despite the concern about protected area planning, a review @jones2016incorporating shows that more than 90% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritizr and Zonation [@di2014quick; @Hanson2019]. Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species’ capacity to disperse.  
 
-There have been several different approaches to try to model biological corridors. There has been approaches using close to 3,000 species over all of the aAmericas [@lawler2013projected], but those models did not take the species dispersal speed into account or use them to build priority areas. On a more local level, there are several studies that focus in one or a few species [@alagador2014shifting; @cushman2013biological; @gregory2014forecasts] which is not enough for planning. There are a few examples that take into account group of species, but in very confined spaces [@beier2007linkage; @phillips2008optimizing; @williams2005planning]. Among this articles, the work of @phillips2008optimizing, incorporates the use of the Network Flow optimization method [@Ahuja93] in order to solve the problem expressed by @williams2005planning, generating a solution 33% more efficient than previous optimization methods, this makes this methodology one of the most promising ways of solving conservation planning problems.
+```{r}
+DF <- data.frame(BLA = c("Considers more than 2 time-slices", "Can add species to the solutions afterwards", "Keep track of species dispersal routes", "Solves for conservartion targets", "Considers cost as part of the solution"), Network_Flow = rep("Yes", 5), Zonation = c("No", "No", "Yes", "Yes", "Yes"), Migclim = c("Yes", "Yes", "Yes", "No", "No"), Prioritizr = c("No", "No", "No", "Yes", "Yes"))
 
-In its traditional use Network flow, gives the best possible solution given constrains [@phillips2008optimizing]. If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. Quadratic Cost Network Flow as implemented in this research gives us alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas, and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex desicions.
+colnames(DF) <- c("", "Network flow", "Zonation", "Migclim", "Prioritizr")
 
-In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation using the Northern Tropical Andes ecorregion as an example.
+kable(DF, "latex", booktabs = T) %>% kable_styling()
+```
+
+
+However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus, the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
+
+There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species [@alagador2014shifting; @cushman2013biological; @gregory2014forecasts] or group of species  [@beier2007linkage; @phillips2008optimizing; @williams2005planning], not being able to be use for planning for lack of species or be in confined spaces, respectibly. A continental approach was made by @lawler2013projected, who modeled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of @phillips2008optimizing, incorporates the use of the Network Flow optimization method [@Ahuja93] in order to solve the problem expressed by @williams2005planning, generating a solution 33% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
+
+In its traditional use, Network flow gives the best possible solution given constrains [@phillips2008optimizing]. If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex decisions.
+
+In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation,  using the Northern Tropical Andes ecorregion as an example.
 
 # Methods
 
@@ -65,7 +76,9 @@ The studied area is shown in figure \@ref(fig:MapArea) and it encompases `r  pre
 
 ## GCMs
 
-First GCMComparer was used in order to select the 4 GCMs, then R was Used to generate the decadal Distribu
+First GCMComparer was used in order to select the 4 GCMs as shown in figure \@ref(fig:Diagrama), then R was used to generate distribution models for each GCM using the Dismo Package. Then each model was projected as a binary response (presence-absense) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
+
+For each Species, a network of dispersion into each timeslice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
 
 ```{r Diagrama, fig.cap= "All the steps and programs used in the Optimization"}
 knitr::include_graphics("Diag1.png", dpi = 200)
@@ -156,7 +169,7 @@ RasterSolnandes_ln <- RasterSolnandes_ln/cellStats(RasterSolnandes_ln, "max")
 ```
 
 
-```{r AllSols, dev='png', dpi=700}
+```{r}
 Zonation1 <- raster("nandes_endemic_rcp85_PA_cc.CAZ_MEBLP1000.wrscr.compressed.tif")
 Zonation1 <- Zonation1/cellStats(Zonation1, "max")
 
@@ -180,13 +193,24 @@ names(Sols) <- c("Quadratic NF", "Linear NF", "Zonation")
 
 myTheme <- BuRdTheme()
 myTheme$panel.background$col = 'gray'
+```
 
-
+```{r AllSols, dev='png', dpi=700}
 levelplot(Sols, par.settings = myTheme)
 ```
 
-The results of all three algorithms is shonw in figure \@ref(fig:AllSols)
+* **For methods:** Since one of the main objectives of prorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are zome important 
 
+The results of all three algorithms is shonw in figure \@ref(fig:AllSols), at first glance, the thre algorithms havee very similar results, however, when we look at the Spearman correlation of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \@ref(fig:LocalCorr)), we see that for the most part, the local correlations are all mostly possitive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local priorization, that is mostly localized 
+
+
+when we look at the boxplot of local correlation values (figure \@ref(fig:Boxplot)), we see that the lower whiskers in the comparizon of both NetworkFlow methods with Zonation, are bellow zero
+
+
+
+
+
+* **For discusion:** One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow. 
 
 ### Efficiency comparison (Number of cells)
 
@@ -202,8 +226,10 @@ values(Sols2[[3]]) <- ifelse(values(Sols2[[3]]) > Quants[3,1], 1, 0)
 names(Sols2) <- c("Quadratic NF", "Linear NF", "Zonation")
 levelplot(Sols2, par.settings = myTheme)
 Areas <- cellStats((Sols2*area(Sols2[[1]])), "sum")
+
+AreaCells <- cellStats(Sols2, "sum")
 ```
-In this example when we calculate the top 10% of protected cells for Quadratic Network Flow we get `r prettyNum(round(Areas[1]), big.mark = ",")` Squared Kms, `r prettyNum(round(Areas[2]), big.mark = ",")` Squared Kms for linear Network Flow, and `r prettyNum(round(Areas[3]), big.mark = ",")` Squared Kms for Zonation. That is  `r round((Areas[1]/(as.numeric(st_area(sandes))/1000000)*100),4)`, `r round((Areas[2]/(as.numeric(st_area(sandes))/1000000)*100),4)`, `r round((Areas[3]/(as.numeric(st_area(sandes))/1000000)*100),4)` percent of the total area respectively.
+In this example when we calculate the top 10% of protected cells for Quadratic Network Flow we get `r prettyNum(round(AreaCells[1]), big.mark = ",")` cells, `r prettyNum(round(AreaCells[2]), big.mark = ",")` cells for linear Network Flow, and `r prettyNum(round(AreaCells[3]), big.mark = ",")` cells for Zonation.
 
 ```{r, dev='png', dpi=700}
 r <- ratify(sum(Sols2))
@@ -227,31 +253,22 @@ COR <- as.data.frame(Sols) %>% dplyr::filter(!is.na(Zonation), !is.na(Quadratic.
 kable(COR, "latex", booktabs = T) %>% kable_styling()
 ```
 
-```{r}
-splom(Sols)
-```
 
-```{r}
+```{r LocalCorr, fig.cap="Box plot of local correlations between all three different methods of priorization"}
 
 CORRSTACK <- read_rds("CORRSTACK.rds")
 
 levelplot(CORRSTACK, par.settings = myTheme, layout=c(3, 3))
 ```
 
-
-## Subsection 2 {-}
-
-Frontiers requires figures to be submitted individually, in the same order as
-they are referred to in the manuscript. Figures will then be automatically
-embedded at the bottom of the submitted manuscript. Kindly ensure that each
-table and figure is mentioned in the text and in numerical order. Permission
-must be obtained for use of copyrighted material from other sources (including
-the web). Please note that it is compulsory to follow figure instructions.
-Figures which are not according to the guidelines will cause substantial delay
-during the production process.
+```{r Boxplot, fig.cap="Box plot of local correlations between all three different methods of priorization"}
+bwplot(CORRSTACK[[c(2,3,6)]], violin = FALSE)
+```
 
 
 # Discussion
+
+
 
 # Disclosure/Conflict-of-Interest Statement {-}
 
@@ -336,3 +353,73 @@ a <- readRDS("Solutionnandes_linear_mp.rds") %>% purrr::reduce(bind_rows) %>% gr
 The species used for the solution were the folowing:
 
 `r a`
+
+
+<!-- BIEN Data Standardization Workflow. The BIEN database is generated via a linked workflow that imports and integrates heterogeneous data structures (including Darwin Core (48) , plus a variety of project-specific schemas and exchange formats), and then performs multiple corrections and validations. The BIEN workflow is described at http://bien.nceas.ucsb.edu/bien/tools/ and in the following references (49-53).  In addition to correcting erroneous original content and standardizing variant spellings to a single canonical form, corrections also remove or flag erroneous content when the correct meaning cannot be determined). Validations delete erroneous records and add annotations that can be used to filter low-quality data and data useful for some analyses but not others (e.g., observations of introduced or cultivated species). --> -->
+
+<!-- The two major classes of corrections are taxonomic name resolution and geographic name resolution. Taxonomy is standardized using the Taxonomic Name Resolution Service (TNRS; (49) ), which corrects spelling errors in scientific names, standardizes variant spelling and updates synonyms to accepted names. Additional code detects cross-code homonyms (e.g. plant and animal species with identical names) and flags non-plant observations for removal. The names of political divisions (e.g. country, state/ province, county/parish) are standardized using the Geographic Name Resolution Service (GNRS; https://github.com/ojalaquellueva/gnrs) which corrects spelling errors and matches codes (e.g., ISO, FIPS), abbreviations, variant spellings and alternative names in multiple languages to standard political divisions in the GeoNames gazetteer (https://www.geonames.org).  --> -->
+
+<!-- The two major classes of validations are geographic validation and species status validation. Checks performed by geographic validations include (1) coordinate values outside coordinate system (e.g., longitude >180° or <-180°), (2) likely erroneous coordinate values (latitude is exactly 0 or 90 or longitude is exactly 0 or 180,  (3) coordinates in the ocean, (4) coordinate matches a centroid (centroid detection) and (5) coordinates outside lowest declared political division (political division validation). Centroid detection and political division validation used administrative boundaries from the Database of Global Administrative Areas (GADM; http://www.gadm.org), with political division names standardized by the GNRS (see above).  Species status validations checked for (1) species falling outside their native ranges and (2) observations of human-cultivated plants. Observations species outside of their native range were identified using the Native Species Resolver (NSR; https://github.com/ojalaquellueva/nsr), which uses published country and state checklists to determine if the observed species is native to the lowest declare political divisions. List of endemic taxa are also used to detect non-native occurrences outside the region of endemism. and endemism data.  Observations were flagged as cultivated based on (1) keywords in the specimen locality data suggesting provenance from a farm or garden, or (2) geographic proximity (≤3 km) to a botanical garden or herbarium, or (3) original observation metadata indicating a cultivated origin. --> -->
+
+<!-- For these analyses we excluded records if (1) they lacked a scientific name resolved to at least the species level; (2) they did not come from a land plant (Embryophyta); (3) they failed one or more geographic validations; (4) the species was flagged as potentially non-native to the region of observation; (5) the plant was flagged as potentially cultivated; 5) the observation did not originate from either plot or specimen data. --> -->
+
+
+
+<!-- BIEN Data Sources. The BIEN data mainly comprise herbarium collections, ecological plots and surveys (53-60), and trait observations.  For details of specimen data sources see Table S2 of Maitner et al. 2017 (50). A full listing of the herbaria data used are given in the Acknowledgements section. The observations in the BIEN database are the product of contributions by 1076 different data contributors, including numerous individual herbaria, data indexers of herbarium or plot data. Of the herbaria, 550+ are listed in Index Herbarium. Additionally, BIEN 4.1 includes data from RAINBIO, TEAM, The Royal Botanical Garden of Sydney, Australia, and NeoTropTree.  Plot data within BIEN are from the CVS, NVS, SALVIAS, VEGBANK, CTFS, FIA, MADIDI, and TEAM data networks and datasets (see http://bien.nceas.ucsb.edu/bien/data-contributors/all/). --> -->
+
+<!-- A summary of all of the botanical data in the (BIEN 4.1) database include: Total observations: 206,241,288 which stem from 63,498,238 observations from specimen data, 17,430,379 observations fro plot and survey observations. Plot observations originate from 364,477 plots.  Multiple observations of the same species from a single plot were counted as a single ‘plot’ observation. For details of plot data sources  see Table S1 of Maitner et al. 2017 (50). The final number of the total number of specimen observations used in our analyses after passing through our pipeline was 9,345,197.  For each species we counted the total number of occurrences that were recorded in each dataset. --> -->
+
+
+
+<!-- Vertebrates. Point occurrences for global restricted range bird species (61). Point occurrences for tropical vertebrates (GBIF, VertNet). Occurrences with geovalid coordinates. Occurrences more recent than 1950. Human observations only (no fossil records or museum specimens). Political centroids and locations with zeros removed. Spatial outliers – more than 500km from IUCN range polygon or >98th percentile of latitude + longitude. Expert range maps polygons for all available mammals, birds, reptiles were used as a means of model and occurrence record validation (61-62) --> -->
+
+
+
+<!-- Species Distribution Models. Species distribution models were produced with Maxent (63) for species with >10 unique occurrence records (i.e. unique 1km grid cells in the modelling domain). Maxent settings followed the recommendations of Merow et al. 2013 and Merow et al. 2014 to produce relatively less complex models (e.g. limiting features to linear, quadratic, and product functions) to minimize overfitting (64-65). Modeling domains were limited to a spatial buffer of 500km within any geovalid occurrence record.  Background sampling for pseudoabsence point was a random sample of 50,000 points. Five model replicates were used in fitting the model. Average of five replicates was used for final species model in baseline climate – and those fitted parameters were used for all projections into future climates. 30% of occurrence records were reserved to assess model performance. --> -->
+
+
+
+<!-- Environmental Predictor Variables. The following bioclimatic variables from downscaled 20-year normals (66) based on pan-tropical correlation analysis and ability to describe the climate for a given location.  When presented with the choice of two variables that were otherwise closely correlated, we selected the variable that were not combinations of temperature and precipitation or relied on monthly segmentation of the yearly climate (e.g. precipitation in the warmest quarter). --> -->
+
+<!--    Mean annual temperature (BIO1) --> -->
+<!--  Mean diurnal temperature range (BIO2) --> -->
+<!--      Seasonality of temperature (BIO4) --> -->
+<!--      Minimum temperature of the coldest month (BIO6) --> -->
+<!--      Mean annual precipitation (BIO12) --> -->
+<!--      Seasonality of precipitation (BIO15) --> -->
+
+
+
+<!--      Accumulated Aridity Index. To account for the effect of dry season length and the water deficit experienced by vegetation during dry periods we derived and accumulated aridity index that identifies the maximum duration and accumulated water deficit for consecutive months where potential evapotranspiration exceeds mean monthly precipitation. The accumulated aridity index is the sum of the month aridity (precipitation – PET) for the maximum run of consecutive months where (PET > precipitation). --> -->
+
+
+
+<!--      Soils Variables. The following soils variables were also used in species distribution models.  All variables were obtained from Soilgrids (67).  Variables with multiple strata available are the mean of the top 1m (strata 1-4). --> -->
+
+<!--     depth to bedrock --> -->
+<!--     pH --> -->
+<!--     clay proportion --> -->
+<!--      silt proportion --> -->
+<!--      bulk density --> -->
+
+
+
+<!--  Prioritization under Climate Change. Zonation Conservation Planning Software is a widely used tool that allows for simultaneous prioritization of many thousands of conservation features (i.e. species or ecosystem types) while also considering fundamental aspects of the landscape including habitat condition, connectivity, and cost (68-69).  Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction.  This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species’ capacity to disperse.  The protocol for running Zonation under uncertain climate change projections is thoroughly described in Kujala et al. 2013 (70). --> -->
+
+<!--  Species current ranges were linked to projected future ranges through an interaction layer. This layer is transformed by a dispersal kernel with a parameter to limit the interaction to the species total capacity to disperse over the period of analysis. Total dispersal capacity was assumed to be 100km for vertebrates (roughly 1 km/yr) and 1km for vascular plants (roughly 100m/yr). The algorithm favors areas of the species range in baseline climate that are retained in the projected future climate (i.e. the areas are suitable for species in both baseline and future climate). Prioritization were conducted using the mean projected future species ranges across 10 GCM under the same RCP (RCP2.6 or RCP8.5) that were discounted by the standard deviation the projected ranges.  Prioritizations were also run for each GCM individually for both RCP2.6 and RCP8.5 --> -->
+
+
+
+<!--  Conservation Features. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Prioritization used the continuous value output of species distribution models for current climates and projected future climates. See species distribution modeling section above for more information. Models were fit at 30 arc-second resolution and were projected into 5km resolution environmental layers. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Species with too few occurrence records to produce a model were included as point locations (Zonation term = “Species of Special Interest”). Equal weighting was used for all conservation features. --> -->
+
+
+
+<!--  Prioritization Methods. Zonation ranks all cells in a landscape according to their value and removes cells of lowest value at each processing step.  Values are then recalculated for all remaining cells at each step. Core area zonation removal algorithm was used this assigns value to a cell from the highest value species present in that cell at each step of removal.  Species with smaller ranges have few cells that are critical for their conservation these cells therefore tend to have high values. By contrast, wide ranging species have more opportunities to be conserved -- so are typically lower value until only the core range remains. Warp factor (number of cells removed at each step) for all analysis was set to 1 to maximize the accuracy of the rank order assigned. All prioritizations used edge removal and boundary length penalty of 1. --> -->
+
+
+
+<!--  Land Cover and Land Use. Areas of existing built up land or intensive agriculture were removed from the analysis and therefore those cells are not part of the prioritization solution.  Built up and agricultural areas were defined as >50% of pixel coverage for ‘urban’ and ‘agriculture’ classes from the 1km global consensus land cover dataset produced by Tuanmu et al. 2014 (71). Existing protected areas (40) are solved first so that the priorities take existing protection into account.  --> -->
+
+
+
+<!-- Extinction Risk Calculations. Standard zonation output tabulates the proportion of each conservation remaining at each step of removal. Rows of the output table that represent e.g. 30% coverage of terrestrial area were determined by scaling the solution to the available area that is not protected, agriculture or urban. Total proportion of species range conserved at an increment of conservation action was extracted for all species current and modeled future ranges. Baseline for species range size (suitability weighted range) was the full modeled range before agriculture and urban lands were removed. Extinction risk for each species was determined by applying a species area relationship to the proportion of a species range conserved at an increment of conservation action. Exponent for SAR function used here was 0.25 (default for Zonation extinction risk output). Aggregate extinction risk for each increment of natural land was the mean of individual species extinction risk calculations. --> -->
