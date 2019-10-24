@@ -24,12 +24,12 @@ RasterSolsnandes <- readRDS("RasterSolsnandes.rds")
 
 # Introduction
 
-Currently, 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns [@rodrigues2004effectiveness; @jenkins2015us]. The situation is even worst when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future because of the climate crisis [@alagador2014shifting; @araujo2004would].
+Currently, 14.9% of terrestrial area is a part of the global protected area network [@unep2018ngs]. However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiversity patterns [@rodrigues2004effectiveness; @jenkins2015us]. The situation is even worst when we take into account that the range of species will change over time [@araujo2004would; @chen2011rapid; @lenoir2008significant; @regos2016predicting], were several species that are now being protected by these areas might not be protected in the future because of the climate crisis [@alagador2014shifting; @araujo2004would].
 
-Despite the concern about protected area planning, a review @jones2016incorporating shows that more than 90% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritizr and Zonation [@di2014quick; @Hanson2019]. Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species’ capacity to disperse.  
+Despite the concern about protected area planning, a review @jones2016incorporating shows that more than 90% of the prioritization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritize and Zonation [@di2014quick; @Hanson2019]. Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modelled future range, and the connectivity between the two limited by a species’ capacity to disperse.  
 
 ```{r}
-DF <- data.frame(BLA = c("Considers more than 2 time-slices", "Can add species to the solutions afterwards", "Keep track of species dispersal routes", "Solves for conservartion targets", "Considers cost as part of the solution"), Network_Flow = rep("Yes", 5), Zonation = c("No", "No", "Yes", "Yes", "Yes"), Migclim = c("Yes", "Yes", "Yes", "No", "No"), Prioritizr = c("No", "No", "No", "Yes", "Yes"))
+DF <- data.frame(BLA = c("Considers more than 2 time-slices", "Can add species to the solutions afterwards", "Keep track of species dispersal routes", "Solves for conservation targets", "Considers cost as part of the solution"), Network_Flow = rep("Yes", 5), Zonation = c("No", "No", "Yes", "Yes", "Yes"), Migclim = c("Yes", "Yes", "Yes", "No", "No"), Prioritizr = c("No", "No", "No", "Yes", "Yes"))
 
 colnames(DF) <- c("", "Network flow", "Zonation", "Migclim", "Prioritizr")
 
@@ -37,11 +37,11 @@ kable(DF, "latex", booktabs = T) %>% kable_styling()
 ```
 
 
-However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus, the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
+However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use [@nunez2013connectivity; @rosenberg1997biological]. Thus, the planification and creation of those biological corridors correspond to adaptive measures to environmental changes that would mitigate the impacts of the climate crisis [@hannah2007protected]. In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
 
-There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species [@alagador2014shifting; @cushman2013biological; @gregory2014forecasts] or group of species  [@beier2007linkage; @phillips2008optimizing; @williams2005planning], not being able to be use for planning for lack of species or be in confined spaces, respectibly. A continental approach was made by @lawler2013projected, who modeled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of @phillips2008optimizing, incorporates the use of the Network Flow optimization method [@Ahuja93] in order to solve the problem expressed by @williams2005planning, generating a solution 33% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
+There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species [@alagador2014shifting; @cushman2013biological; @gregory2014forecasts] or group of species  [@beier2007linkage; @phillips2008optimizing; @williams2005planning], not being able to be use for planning for lack of species or be in confined spaces, respectively. A continental approach was made by @lawler2013projected, who modelled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of @phillips2008optimizing, incorporates the use of the Network Flow optimization method [@Ahuja93] in order to solve the problem expressed by @williams2005planning, generating a solution 33% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
 
-In its traditional use, Network flow gives the best possible solution given constrains [@phillips2008optimizing]. If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex decisions.
+In its traditional use, Network flow gives the best possible solution given constrains [@phillips2008optimizing]. If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necessary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irreplaceable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative suboptimal solutions might be needed in order to navigate this complex decisions.
 
 In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation,  using the Northern Tropical Andes ecorregion as an example.
 
@@ -49,7 +49,7 @@ In this article we present a new method of working with network flow on conserva
 
 ## Area
 
-The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometers arround land areas. 
+The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometres around land areas. 
 
 ```{r MapArea, cache=TRUE, fig.align='center', fig.cap='Map of Southamerica, the darkened area is the area where the priorization was performed'}
 data("countriesHigh")
@@ -68,25 +68,25 @@ ggplot() + geom_sf(data = SA, fill = "darkolivegreen3", color = "white") + geom_
 
 ```
 
-The studied area is shown in figure \@ref(fig:MapArea) and it encompases `r  prettyNum(round(as.numeric(st_area(sandes))/1000000,0), big.mark = ",")` square kilometers
+The studied area is shown in figure \@ref(fig:MapArea) and it encompasses `r  prettyNum(round(as.numeric(st_area(sandes))/1000000,0), big.mark = ",")` square kilometres
 
 ## Species
 
 671 species of plants were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
 
-## GCMs
+## Global circulation models
 
-First GCMComparer was used in order to select the 4 GCMs as shown in figure \@ref(fig:Diagrama), then R was used to generate distribution models for each GCM using the Dismo Package. Then each model was projected as a binary response (presence-absense) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
+Global Circulation Models (GCMs) are predictive models that use fluid models... In order to select 4 GCMs, GCMComparer application was used \@ref(fig:Diagrama). Distribution models were generated for each GCM using the Dismo Package in R. Then, each model was projected as a binary response (presence-absence) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
 
-For each Species, a network of dispersion into each timeslice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
+For each species, a network of dispersion into each time-slice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
 
 ```{r Diagrama, fig.cap= "All the steps and programs used in the Optimization"}
 knitr::include_graphics("Diag1.png", dpi = 200)
 ```
 
-Four GCM models were selected to project the species distribution using the GCMcompareR shiny app [@fajardo_javier_2018_2669407], we followed the storylines approach [@zappa2017storylines] and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble. The selected models where `r names(RasterSolsnandes)` al the process is shonw in in figure \@ref(fig:Diagrama).
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app [@fajardo_javier_2018_2669407], we followed the story-lines approach [@zappa2017storylines] and selected a GCM warmer and wetter, warmer and dryer, colder and wetter, and colder and dryer than the ensemble. The selected models where `r names(RasterSolsnandes)` al the process is shown in in figure \@ref(fig:Diagrama).
 
-## Niche modeling
+## Niche modelling
 
 For each species the species distribution model was fit using the dismo package [@Hijmans_Dismo], using 50,000 random background points and the maxent algorithm [@phillips2006maximum; @merow2013practical]
 
@@ -116,38 +116,16 @@ $$\small \text{Flow capacity} = \sum_{i=1}^n{Flow_{(i,t)}} \leq capacity_{(i,t)}
 
 ## Network generation
 
-Ir order to generate the networks de QuadCostAmpl package was used [@Corcoran_Quadcost]
+In order to generate the networks de QuadCostAmpl package was used [@Corcoran_Quadcost]
 
 
-## Linear Network FLow
+## Linear Network Flow
 
 Model
 
 ## Quadratic Network Flow
 
 ## Zonation
-
-*In the examples above, (a) uses the Present Simple tense to
-describe what is normally done or to describe a standard piece of equipment
-used in the research and (b) uses the Past Simple tense to describe what
-you did yourself.*
-
-*Another diffi culty arises with the passive when you write about the
-procedure you used and compare it with the work of other researchers.
-You can use the Past Simple agentless passive to describe the procedure
-you used (the samples were collected using a suction tube) but you may
-also need to use exactly the same Past Simple agentless passive to describe
-the procedure used by the other researcher whose work you are citing (the
-samples were collected using a suction tube).*
-
-*One way to make sure that your own contribution is clear and easy
-to identify is by marking it with words — perhaps by adding phrases
-like* **In this study**, *the samples were collected using a suction tube or* **In
-our experiments** *the samples were collected using a suction tube, and by
-identifying the procedure used by other researchers with careful references
-at the appropriate place in the sente*
-
-
 
 
 # Results {-}
@@ -195,26 +173,11 @@ myTheme <- BuRdTheme()
 myTheme$panel.background$col = 'gray'
 ```
 
-```{r AllSols, dev='png', dpi=700}
+```{r AllSols, dev='png', dpi=700, fig.cap= "Coninuous results of the three algorithms, the highest the value the higher the priority, all values go from 0 to 1."}
 levelplot(Sols, par.settings = myTheme)
 ```
 
-* **For methods:** Since one of the main objectives of prorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are zome important 
-
-The results of all three algorithms is shonw in figure \@ref(fig:AllSols), at first glance, the thre algorithms havee very similar results, however, when we look at the Spearman correlation of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \@ref(fig:LocalCorr)), we see that for the most part, the local correlations are all mostly possitive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local priorization, that is mostly localized 
-
-
-when we look at the boxplot of local correlation values (figure \@ref(fig:Boxplot)), we see that the lower whiskers in the comparizon of both NetworkFlow methods with Zonation, are bellow zero
-
-
-
-
-
-* **For discusion:** One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow. 
-
-### Efficiency comparison (Number of cells)
-
-```{r, dev='png', dpi=700}
+```{r}
 Sols2 <- Sols
 values(Sols2) <- ifelse(is.na(values(Sols2)), 0, values(Sols2))
 Sols2 <- Sols2*MaskFull
@@ -224,39 +187,88 @@ values(Sols2[[1]]) <- ifelse(values(Sols2[[1]]) > Quants[1,1], 1, 0)
 values(Sols2[[2]]) <- ifelse(values(Sols2[[2]]) > Quants[2,1], 1, 0)
 values(Sols2[[3]]) <- ifelse(values(Sols2[[3]]) > Quants[3,1], 1, 0)
 names(Sols2) <- c("Quadratic NF", "Linear NF", "Zonation")
-levelplot(Sols2, par.settings = myTheme)
+
 Areas <- cellStats((Sols2*area(Sols2[[1]])), "sum")
 
 AreaCells <- cellStats(Sols2, "sum")
+
+r <- sum(Sols2)
+
+rsome <- r
+values(rsome) <- ifelse(is.na(values(rsome)), NA, ifelse(values(rsome) > 0, 1, 0))
+Some <- cellStats(rsome, "sum")
+
+rOne <- r
+values(rOne) <- ifelse(is.na(values(rOne)), NA, ifelse(values(rOne) == 1, 1, 0))
+One <- cellStats(rOne, "sum")
+
+rTwo <- r
+values(rTwo) <- ifelse(is.na(values(rTwo)), NA, ifelse(values(rTwo) == 2, 1, 0))
+Two <- cellStats(rTwo, "sum")
+
+rThree <- r
+values(rThree) <- ifelse(is.na(values(rThree)), NA, ifelse(values(rThree) == 3, 1, 0))
+Three <- cellStats(rThree, "sum")
 ```
+
+* **For methods:** Since one of the main objectives of priorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are some important 
+
+
+There are two ways of trying to look at the results, as a continuous layer, as in figure \@ref(fig:AllSols), or as a binary solution as in fig \@ref(fig:Binary), where the cells in red are the top 10% ranked cells to be protected. At first glance, the three algorithms have very similar results. In all three methods the Andes mountains appear to have the highest priorities in particular the Northwest Andean montane forests, Eastern Cordillera Real montane forests, Venezuelan Andes montane forests, Cordillera Oriental montane forests, and the Cauca and Magdalena Valley montane forests, outside of the Andes mountains the ecorregions that have the highest priorities are Guianan Highlands moist forests, Pantepui forests & shrub-lands and Cordillera La Costa montane forests. Furthermore, when we look at the top 10% cells selected by the algorithms (Figures \@ref(fig:Binary) and  \@ref(fig:NumberOfTimes)), we see that of all the cells that were selected at least by one algorithm `r paste0(round((Three/Some*100),2), "%")` of the cells were selected by all three algorithm, which show the level of concordance between cells, `r paste0(round((Two/Some*100),2), "%")` were selected by two of the algorithms and only `r paste0(round((One/Some*100),2), "%")` of the cells selected were chosen by only one of the methods.
+
+However, when we look at the Spearman correlation (table \@ref(tab:Corr)), of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \@ref(fig:LocalCorr)), we see that for the most part, the local correlations are all mostly positive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local prioritization, that is mostly localized 
+
+
+when we look at the box-plot of local correlation values (figure \@ref(fig:Boxplot)), we see that the lower whiskers in the comparison of both Network Flow methods with Zonation, are bellow zero
+
+
+
+
+
+* **For discussion:** One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow. 
+
+### Efficiency comparison (Number of cells)
+
+
+
+```{r  Binary, dev='png', dpi=700, fig.cap= "Binary solution for the cells with the top 10% value of ranked priority"}
+levelplot(Sols2, par.settings = myTheme)
+```
+
 In this example when we calculate the top 10% of protected cells for Quadratic Network Flow we get `r prettyNum(round(AreaCells[1]), big.mark = ",")` cells, `r prettyNum(round(AreaCells[2]), big.mark = ",")` cells for linear Network Flow, and `r prettyNum(round(AreaCells[3]), big.mark = ",")` cells for Zonation.
 
-```{r, dev='png', dpi=700}
+```{r}
 r <- ratify(sum(Sols2))
 
 rat <- levels(r)[[1]]
 rat$landcover <- c("Zero",'One', 'Two', 'Three')
 rat$class <- c("0",'A1', 'B2', 'C3')
 levels(r) <- rat
+```
 
+```{r NumberOfTimes, dev='png', dpi=700, fig.cap= "This map shows how many algorithms selected each cell"}
 levelplot(r, col.regions=c("#0571b0","#92c5de","#f4a582","#ca0020"), colorkey = list(title = "Number of algorithms"))
 ```
 
 
 
+
 ### Correlation comparison (Spearman)
 
-```{r}
+```{r Corr}
 library(corrr)
 COR <- as.data.frame(Sols) %>% dplyr::filter(!is.na(Zonation), !is.na(Quadratic.NF)) %>% correlate(use ="pairwise.complete.obs", method = "spearman") %>% rearrange()
 
-kable(COR, "latex", booktabs = T) %>% kable_styling()
+kable(COR, "latex", booktabs = T, caption = "Spearman correlation between the rank of the cells of all three methods") %>% kable_styling()
 ```
 
 
-```{r LocalCorr, fig.cap="Box plot of local correlations between all three different methods of priorization"}
-
+```{r}
 CORRSTACK <- read_rds("CORRSTACK.rds")
+```
+
+
+```{r LocalCorr, dev='png', dpi=700, fig.cap="Box plot of local correlations between all three different methods of priorization"}
 
 levelplot(CORRSTACK, par.settings = myTheme, layout=c(3, 3))
 ```
