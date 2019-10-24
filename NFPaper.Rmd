@@ -3,10 +3,13 @@ title: "Target-based site prioritization under climate change using quadratic ne
 author: "Derek Corcoran"
 output:
   bookdown::pdf_document2:
+    citation_package: none
+    pandoc_args: ["--csl", "methods-in-ecology-and-evolution.csl"]
     keep_tex: true
     fig_caption: true
     toc: false
 bibliography: test.bib
+biblio-style: methods-in-ecology-and-evolution
 ---
 
 ```{r setup, include=FALSE}
@@ -72,7 +75,7 @@ The studied area is shown in figure \@ref(fig:MapArea) and it encompasses `r  pr
 
 ## Species
 
-671 species of plants were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
+671 species of plants and vertebrates were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
 
 ## Global circulation models
 
@@ -90,25 +93,21 @@ Four GCM models were selected to project the species distribution using the GCMc
 
 ### BIEN Data Standardization Workflow. 
 
-The BIEN database is generated via a linked workflow that imports and integrates heterogeneous data structures (including Darwin Core (48) , plus a variety of project-specific schemas and exchange formats), and then performs multiple corrections and validations. The BIEN workflow is described at http://bien.nceas.ucsb.edu/bien/tools/ and in the following references (49-53).  In addition to correcting erroneous original content and standardizing variant spellings to a single canonical form, corrections also remove or flag erroneous content when the correct meaning cannot be determined). Validations delete erroneous records and add annotations that can be used to filter low-quality data and data useful for some analyses but not others (e.g., observations of introduced or cultivated species).
+The BIEN database is generated via a linked workflow that imports and integrates heterogeneous data structures (including [@baker2014linking], plus a variety of project-specific schemas and exchange formats), and then performs multiple corrections and validations. The BIEN workflow is described at http://bien.nceas.ucsb.edu/bien/tools/ and in the following references (49-53).  In addition to correcting erroneous original content and standardizing variant spellings to a single canonical form, corrections also remove or flag erroneous content when the correct meaning cannot be determined). Validations delete erroneous records and add annotations that can be used to filter low-quality data and data useful for some analyses but not others (e.g., observations of introduced or cultivated species).
 
-The two major classes of corrections are taxonomic name resolution and geographic name resolution. Taxonomy is standardized using the Taxonomic Name Resolution Service (TNRS; (49) ), which corrects spelling errors in scientific names, standardizes variant spelling and updates synonyms to accepted names. Additional code detects cross-code homonyms (e.g. plant and animal species with identical names) and flags non-plant observations for removal. The names of political divisions (e.g. country, state/ province, county/parish) are standardized using the Geographic Name Resolution Service (GNRS; https://github.com/ojalaquellueva/gnrs) which corrects spelling errors and matches codes (e.g., ISO, FIPS), abbreviations, variant spellings and alternative names in multiple languages to standard political divisions in the GeoNames gazetteer (https://www.geonames.org).
+The two major classes of corrections are taxonomic name resolution and geographic name resolution. Taxonomy is standardized using the Taxonomic Name Resolution Service [@boyle2013taxonomic], which corrects spelling errors in scientific names, standardizes variant spelling and updates synonyms to accepted names. Additional code detects cross-code homonyms (e.g. plant and animal species with identical names) and flags non-plant observations for removal. The names of political divisions (e.g. country, state/ province, county/parish) are standardized using the Geographic Name Resolution Service [@Boyle2019GNRS] which corrects spelling errors and matches codes (e.g., ISO, FIPS), abbreviations, variant spellings and alternative names in multiple languages to standard political divisions in the GeoNames gazetteer (https://www.geonames.org).
 
-The two major classes of validations are geographic validation and species status validation. Checks performed by geographic validations include (1) coordinate values outside coordinate system (e.g., longitudes larger than 180 degrees or smaller than -180), (2) likely erroneous coordinate values (latitude is exactly 0 or 90 or longitude is exactly 0 or 180,  (3) coordinates in the ocean, (4) coordinate matches a centroid (centroid detection) and (5) coordinates outside lowest declared political division (political division validation). Centroid detection and political division validation used administrative boundaries from the Database of Global Administrative Areas (GADM; http://www.gadm.org), with political division names standardized by the GNRS (see above).  Species status validations checked for (1) species falling outside their native ranges and (2) observations of human-cultivated plants. Observations species outside of their native range were identified using the Native Species Resolver (NSR; https://github.com/ojalaquellueva/nsr), which uses published country and state checklists to determine if the observed species is native to the lowest declare political divisions. List of endemic taxa are also used to detect non-native occurrences outside the region of endemism. and endemism data.  Observations were flagged as cultivated based on (1) keywords in the specimen locality data suggesting provenance from a farm or garden, or (2) geographic proximity ($\leq$ 3 km) to a botanical garden or herbarium, or (3) original observation metadata indicating a cultivated origin.
+The two major classes of validations are geographic validation and species status validation. Checks performed by geographic validations include (1) coordinate values outside coordinate system (e.g., longitudes larger than 180 degrees or smaller than -180), (2) likely erroneous coordinate values (latitude is exactly 0 or 90 or longitude is exactly 0 or 180,  (3) coordinates in the ocean, (4) coordinate matches a centroid (centroid detection) and (5) coordinates outside lowest declared political division (political division validation). Centroid detection and political division validation used administrative boundaries from the Database of Global Administrative Areas (GADM; http://www.gadm.org), with political division names standardized by the GNRS (see above).  Species status validations checked for (1) species falling outside their native ranges and (2) observations of human-cultivated plants. Observations species outside of their native range were identified using the Native Species Resolver [@Boyle2019NSR], which uses published country and state checklists to determine if the observed species is native to the lowest declare political divisions. List of endemic taxa are also used to detect non-native occurrences outside the region of endemism. and endemism data. Observations were flagged as cultivated based on (1) keywords in the specimen locality data suggesting provenance from a farm or garden, or (2) geographic proximity ($\leq$ 3 km) to a botanical garden or herbarium, or (3) original observation metadata indicating a cultivated origin.
 
 For these analyses we excluded records if (1) they lacked a scientific name resolved to at least the species level; (2) they did not come from a land plant (Embryophyta); (3) they failed one or more geographic validations; (4) the species was flagged as potentially non-native to the region of observation; (5) the plant was flagged as potentially cultivated; 5) the observation did not originate from either plot or specimen data.
 
-### BIEN Data Sources. 
+### Vertebrates. 
 
-The BIEN data mainly comprise herbarium collections, ecological plots and surveys (53-60), and trait observations.  For details of specimen data sources see Table S2 of Maitner et al. 2017 (50). A full listing of the herbaria data used are given in the Acknowledgements section. The observations in the BIEN database are the product of contributions by 1076 different data contributors, including numerous individual herbaria, data indexers of herbarium or plot data. Of the herbaria, over 550 are listed in Index Herbarium. Additionally, BIEN 4.1 includes data from RAINBIO, TEAM, The Royal Botanical Garden of Sydney, Australia, and NeoTropTree.  Plot data within BIEN are from the CVS, NVS, SALVIAS, VEGBANK, CTFS, FIA, MADIDI, and TEAM data networks and datasets (see http://bien.nceas.ucsb.edu/bien/data-contributors/all/).
-
-A summary of all of the botanical data in the (BIEN 4.1) database include: Total observations: 206,241,288 which stem from 63,498,238 observations from specimen data, 17,430,379 observations fro plot and survey observations. Plot observations originate from 364,477 plots.  Multiple observations of the same species from a single plot were counted as a single ‘plot’ observation. For details of plot data sources  see Table S1 of Maitner et al. 2017 (50). The final number of the total number of specimen observations used in our analyses after passing through our pipeline was 9,345,197.  For each species we counted the total number of occurrences that were recorded in each dataset.
-
- Vertebrates. Point occurrences for global restricted range bird species (61). Point occurrences for tropical vertebrates (GBIF, VertNet). Occurrences with geovalid coordinates. Occurrences more recent than 1950. Human observations only (no fossil records or museum specimens). Political centroids and locations with zeros removed. Spatial outliers – more than 500km from IUCN range polygon or >98th percentile of latitude + longitude. Expert range maps polygons for all available mammals, birds, reptiles were used as a means of model and occurrence record validation (61-62)
+Point occurrences for global restricted range bird species (61). Point occurrences for tropical vertebrates (GBIF, VertNet). Occurrences with geovalid coordinates. Occurrences more recent than 1950. Human observations only (no fossil records or museum specimens). Political centroids and locations with zeros removed. Spatial outliers – more than 500km from IUCN range polygon or >98th percentile of latitude + longitude. Expert range maps polygons for all available mammals, birds, reptiles were used as a means of model and occurrence record validation (61-62)
 
 ### Species Distribution Models. 
 
-Species distribution models were produced with Maxent (63) for species with over 10 unique occurrence records (i.e. unique 1km grid cells in the modelling domain). Maxent settings followed the recommendations of Merow et al. 2013 and Merow et al. 2014 to produce relatively less complex models (e.g. limiting features to linear, quadratic, and product functions) to minimize overfitting (64-65). Modeling domains were limited to a spatial buffer of 500km within any geovalid occurrence record.  Background sampling for pseudoabsence point was a random sample of 50,000 points. Five model replicates were used in fitting the model. Average of five replicates was used for final species model in baseline climate – and those fitted parameters were used for all projections into future climates. 30% of occurrence records were reserved to assess model performance.
+Species distribution models were produced with Maxent [@phillips2006maximum; @merow2013practical] using the Dismo Package [@Hijmans_Dismo] for species with over 10 unique occurrence records (i.e. unique 1km grid cells in the modelling domain). Maxent settings followed the recommendations of @merow2013practical and @merow2014we to produce relatively less complex models (e.g. limiting features to linear, quadratic, and product functions) to minimize overfitting. Modeling domains were limited to a spatial buffer of 500km within any geovalid occurrence record.  Background sampling for pseudoabsence point was a random sample of 50,000 points. Five model replicates were used in fitting the model. Average of five replicates was used for final species model in baseline climate – and those fitted parameters were used for all projections into future climates. 30% of occurrence records were reserved to assess model performance.
 
 Environmental Predictor Variables. The following bioclimatic variables from downscaled 20-year normals (66) based on pan-tropical correlation analysis and ability to describe the climate for a given location.  When presented with the choice of two variables that were otherwise closely correlated, we selected the variable that were not combinations of temperature and precipitation or relied on monthly segmentation of the yearly climate (e.g. precipitation in the warmest quarter).
 
@@ -121,8 +120,27 @@ Environmental Predictor Variables. The following bioclimatic variables from down
 
 Accumulated Aridity Index. To account for the effect of dry season length and the water deficit experienced by vegetation during dry periods we derived and accumulated aridity index that identifies the maximum duration and accumulated water deficit for consecutive months where potential evapotranspiration exceeds mean monthly precipitation. The accumulated aridity index is the sum of the month aridity (precipitation – PET) for the maximum run of consecutive months where (PET > precipitation).
 
-For each species the species distribution model was fit using the dismo package [@Hijmans_Dismo], using 50,000 random background points and the maxent algorithm [@phillips2006maximum; @merow2013practical]
+Soils Variables. The following soils variables were also used in species distribution models.  All variables were obtained from Soilgrids [@de2018soilgrids].  Variables with multiple strata available are the mean of the top 1m (strata 1-4).
 
+* depth to bedrock
+* pH 
+* clay proportion     
+* silt proportion 
+* bulk density 
+
+Prioritization under Climate Change. Zonation Conservation Planning Software is a widely used tool that allows for simultaneous prioritization of many thousands of conservation features (i.e. species or ecosystem types) while also considering fundamental aspects of the landscape including habitat condition, connectivity, and cost (68-69).  Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction.  This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species’ capacity to disperse.  The protocol for running Zonation under uncertain climate change projections is thoroughly described in Kujala et al. 2013 (70).
+
+Species current ranges were linked to projected future ranges through an interaction layer. This layer is transformed by a dispersal kernel with a parameter to limit the interaction to the species total capacity to disperse over the period of analysis. Total dispersal capacity was assumed to be 100km for vertebrates (roughly 1 km/yr) and 1km for vascular plants (roughly 100m/yr). The algorithm favors areas of the species range in baseline climate that are retained in the projected future climate (i.e. the areas are suitable for species in both baseline and future climate). Prioritization were conducted using the mean projected future species ranges across 10 GCM under the same RCP (RCP2.6 or RCP8.5) that were discounted by the standard deviation the projected ranges.  Prioritizations were also run for each GCM individually for both RCP2.6 and RCP8.5
+
+Conservation Features. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Prioritization used the continuous value output of species distribution models for current climates and projected future climates. See species distribution modeling section above for more information. Models were fit at 30 arc-second resolution and were projected into 5km resolution environmental layers. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Species with too few occurrence records to produce a model were included as point locations (Zonation term = “Species of Special Interest”). Equal weighting was used for all conservation features.
+
+### Prioritization Methods. 
+
+Zonation ranks all cells in a landscape according to their value and removes cells of lowest value at each processing step.  Values are then recalculated for all remaining cells at each step. Core area zonation removal algorithm was used this assigns value to a cell from the highest value species present in that cell at each step of removal.  Species with smaller ranges have few cells that are critical for their conservation these cells therefore tend to have high values. By contrast, wide ranging species have more opportunities to be conserved -- so are typically lower value until only the core range remains. Warp factor (number of cells removed at each step) for all analysis was set to 1 to maximize the accuracy of the rank order assigned. All prioritizations used edge removal and boundary length penalty of 1.
+
+Land Cover and Land Use. Areas of existing built up land or intensive agriculture were removed from the analysis and therefore those cells are not part of the prioritization solution.  Built up and agricultural areas were defined as >50% of pixel coverage for ‘urban’ and ‘agriculture’ classes from the 1km global consensus land cover dataset produced by Tuanmu et al. 2014 (71). Existing protected areas (40) are solved first so that the priorities take existing protection into account. 
+
+## Cost layer
 
 
 
@@ -256,10 +274,6 @@ However, when we look at the Spearman correlation (table \@ref(tab:Corr)), of al
 
 when we look at the box-plot of local correlation values (figure \@ref(fig:Boxplot)), we see that the lower whiskers in the comparison of both Network Flow methods with Zonation, are bellow zero
 
-
-
-
-
 * **For discussion:** One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow. 
 
 ### Efficiency comparison (Number of cells)
@@ -314,7 +328,6 @@ bwplot(CORRSTACK[[c(2,3,6)]], violin = FALSE)
 
 
 # Discussion
-
 
 
 # Disclosure/Conflict-of-Interest Statement {-}
@@ -377,31 +390,3 @@ a <- readRDS("Solutionnandes_linear_mp.rds") %>% purrr::reduce(bind_rows) %>% gr
 The species used for the solution were the folowing:
 
 `r a`
-
-
-
-
-Soils Variables. The following soils variables were also used in species distribution models.  All variables were obtained from Soilgrids (67).  Variables with multiple strata available are the mean of the top 1m (strata 1-4). --> -->
-* depth to bedrock
-* pH 
-* clay proportion     
-* silt proportion 
-* bulk density 
-
-
-
-<!--  Prioritization under Climate Change. Zonation Conservation Planning Software is a widely used tool that allows for simultaneous prioritization of many thousands of conservation features (i.e. species or ecosystem types) while also considering fundamental aspects of the landscape including habitat condition, connectivity, and cost (68-69).  Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction.  This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species’ capacity to disperse.  The protocol for running Zonation under uncertain climate change projections is thoroughly described in Kujala et al. 2013 (70). --> -->
-
-<!--  Species current ranges were linked to projected future ranges through an interaction layer. This layer is transformed by a dispersal kernel with a parameter to limit the interaction to the species total capacity to disperse over the period of analysis. Total dispersal capacity was assumed to be 100km for vertebrates (roughly 1 km/yr) and 1km for vascular plants (roughly 100m/yr). The algorithm favors areas of the species range in baseline climate that are retained in the projected future climate (i.e. the areas are suitable for species in both baseline and future climate). Prioritization were conducted using the mean projected future species ranges across 10 GCM under the same RCP (RCP2.6 or RCP8.5) that were discounted by the standard deviation the projected ranges.  Prioritizations were also run for each GCM individually for both RCP2.6 and RCP8.5 --> -->
-
-
-
-<!--  Conservation Features. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Prioritization used the continuous value output of species distribution models for current climates and projected future climates. See species distribution modeling section above for more information. Models were fit at 30 arc-second resolution and were projected into 5km resolution environmental layers. All available species models (vascular plants and vertebrates) were used in continental scale prioritizations.  Species with too few occurrence records to produce a model were included as point locations (Zonation term = “Species of Special Interest”). Equal weighting was used for all conservation features. --> -->
-
-
-### Prioritization Methods. 
-
-Zonation ranks all cells in a landscape according to their value and removes cells of lowest value at each processing step.  Values are then recalculated for all remaining cells at each step. Core area zonation removal algorithm was used this assigns value to a cell from the highest value species present in that cell at each step of removal.  Species with smaller ranges have few cells that are critical for their conservation these cells therefore tend to have high values. By contrast, wide ranging species have more opportunities to be conserved -- so are typically lower value until only the core range remains. Warp factor (number of cells removed at each step) for all analysis was set to 1 to maximize the accuracy of the rank order assigned. All prioritizations used edge removal and boundary length penalty of 1.
-
-Land Cover and Land Use. Areas of existing built up land or intensive agriculture were removed from the analysis and therefore those cells are not part of the prioritization solution.  Built up and agricultural areas were defined as >50% of pixel coverage for ‘urban’ and ‘agriculture’ classes from the 1km global consensus land cover dataset produced by Tuanmu et al. 2014 (71). Existing protected areas (40) are solved first so that the priorities take existing protection into account. 
-
