@@ -105,9 +105,9 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Currently, 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiersity patterns (Rodrigues et al. 2004; Jenkins et al. 2015). The situation is even worst when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future because of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
+Currently, 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiversity patterns (Rodrigues et al. 2004; Jenkins et al. 2015). The situation is even worst when we take into account that the range of species will change over time (Araújo et al. 2004; Chen et al. 2011; Lenoir et al. 2008; Regos et al. 2016), were several species that are now being protected by these areas might not be protected in the future because of the climate crisis (Alagador, Cerdeira, and Araújo 2014; Araújo et al. 2004).
 
-Despite the concern about protected area planning, a review Jones et al. (2016) shows that more than 90\% of the priorization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritizr and Zonation (Di Minin et al. 2014; Hanson et al. 2019). Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modeled future range, and the connectivity between the two limited by a species' capacity to disperse.
+Despite the concern about protected area planning, a review Jones et al. (2016) shows that more than 90\% of the prioritization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritize and Zonation (Di Minin et al. 2014; Hanson et al. 2019). Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modelled future range, and the connectivity between the two limited by a species' capacity to disperse.
 
 \begin{table}[H]
 \centering
@@ -118,17 +118,17 @@ Despite the concern about protected area planning, a review Jones et al. (2016) 
 Considers more than 2 time-slices & Yes & No & Yes & No\\
 Can add species to the solutions afterwards & Yes & No & Yes & No\\
 Keep track of species dispersal routes & Yes & Yes & Yes & No\\
-Solves for conservartion targets & Yes & Yes & No & Yes\\
+Solves for conservation targets & Yes & Yes & No & Yes\\
 Considers cost as part of the solution & Yes & Yes & No & Yes\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use (Nuñez et al. 2013; Rosenberg, Noon, and Meslow 1997). Thus, the planification and creation of those biological corridors correspond to adaptative measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al. 2007). In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
+However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use (Nuñez et al. 2013; Rosenberg, Noon, and Meslow 1997). Thus, the planification and creation of those biological corridors correspond to adaptive measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al. 2007). In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
 
-There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species (Alagador, Cerdeira, and Araújo 2014; Cushman et al. 2013; Gregory et al. 2014) or group of species (Beier, Majka, and Bayless 2007; Phillips et al. 2008; Williams et al. 2005), not being able to be use for planning for lack of species or be in confined spaces, respectibly. A continental approach was made by Lawler et al. (2013), who modeled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, and Orlin 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
+There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species (Alagador, Cerdeira, and Araújo 2014; Cushman et al. 2013; Gregory et al. 2014) or group of species (Beier, Majka, and Bayless 2007; Phillips et al. 2008; Williams et al. 2005), not being able to be use for planning for lack of species or be in confined spaces, respectively. A continental approach was made by Lawler et al. (2013), who modelled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, and Orlin 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
 
-In its traditional use, Network flow gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necesary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irrepleacable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative subopitmal solutions might be needed in order to navigate this complex decisions.
+In its traditional use, Network flow gives the best possible solution given constrains (Phillips et al. 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necessary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irreplaceable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative suboptimal solutions might be needed in order to navigate this complex decisions.
 
 In this article we present a new method of working with network flow on conservation planning using quadratic costs, while at the same time comparing its results and implications with traditional network flow and zonation, using the Northern Tropical Andes ecorregion as an example.
 
@@ -138,7 +138,7 @@ In this article we present a new method of working with network flow on conserva
 \hypertarget{area}{%
 \subsection{Area}\label{area}}
 
-The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometers arround land areas.
+The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometres around land areas.
 
 \begin{figure}
 
@@ -149,28 +149,28 @@ The studied area was the Northern Tropical Andes, consisting of the countries of
 \caption{Map of Southamerica, the darkened area is the area where the priorization was performed}\label{fig:MapArea}
 \end{figure}
 
-The studied area is shown in figure \ref{fig:MapArea} and it encompases 3,632,762 square kilometers
+The studied area is shown in figure \ref{fig:MapArea} and it encompasses 3,632,762 square kilometres
 
 \hypertarget{species}{%
 \subsection{Species}\label{species}}
 
 671 species of plants were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
 
-\hypertarget{gcms}{%
-\subsection{GCMs}\label{gcms}}
+\hypertarget{global-circulation-models}{%
+\subsection{Global circulation models}\label{global-circulation-models}}
 
-First GCMComparer was used in order to select the 4 GCMs as shown in figure \ref{fig:Diagrama}, then R was used to generate distribution models for each GCM using the Dismo Package. Then each model was projected as a binary response (presence-absense) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
+Global Circulation Models (GCMs) are predictive models that use fluid models\ldots{} In order to select 4 GCMs, GCMComparer application was used \ref{fig:Diagrama}. Distribution models were generated for each GCM using the Dismo Package in R. Then, each model was projected as a binary response (presence-absence) for all decades form 2000 (present) to 2070 completing 8 time slices for each species.
 
-For each Species, a network of dispersion into each timeslice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
+For each species, a network of dispersion into each time-slice was generated using the QuadCostAmpl package, and finally we solved for Network Flow using the AMPL software using the Gurobi solver
 
 \begin{figure}
 \includegraphics[width=4.39in]{Diag1} \caption{All the steps and programs used in the Optimization}\label{fig:Diagrama}
 \end{figure}
 
-Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the storylines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryier, colder and wetter, and colder and dryier than the ensemble. The selected models where cc, cn, la, mp al the process is shonw in in figure \ref{fig:Diagrama}.
+Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo et al. 2018), we followed the story-lines approach (Zappa and Shepherd 2017) and selected a GCM warmer and wetter, warmer and dryer, colder and wetter, and colder and dryer than the ensemble. The selected models where cc, cn, la, mp al the process is shown in in figure \ref{fig:Diagrama}.
 
-\hypertarget{niche-modeling}{%
-\subsection{Niche modeling}\label{niche-modeling}}
+\hypertarget{niche-modelling}{%
+\subsection{Niche modelling}\label{niche-modelling}}
 
 For each species the species distribution model was fit using the dismo package (Hijmans et al. 2017), using 50,000 random background points and the maxent algorithm (Phillips, Anderson, and Schapire 2006; Merow, Smith, and Silander Jr 2013)
 
@@ -201,10 +201,10 @@ The objective is to minimize the cost
 \hypertarget{network-generation}{%
 \subsection{Network generation}\label{network-generation}}
 
-Ir order to generate the networks de QuadCostAmpl package was used (Corcoran and Fajardo 2019)
+In order to generate the networks de QuadCostAmpl package was used (Corcoran and Fajardo 2019)
 
 \hypertarget{linear-network-flow}{%
-\subsection{Linear Network FLow}\label{linear-network-flow}}
+\subsection{Linear Network Flow}\label{linear-network-flow}}
 
 Model
 
@@ -214,62 +214,59 @@ Model
 \hypertarget{zonation}{%
 \subsection{Zonation}\label{zonation}}
 
-\emph{In the examples above, (a) uses the Present Simple tense to
-describe what is normally done or to describe a standard piece of equipment
-used in the research and (b) uses the Past Simple tense to describe what
-you did yourself.}
-
-\emph{Another diffi culty arises with the passive when you write about the
-procedure you used and compare it with the work of other researchers.
-You can use the Past Simple agentless passive to describe the procedure
-you used (the samples were collected using a suction tube) but you may
-also need to use exactly the same Past Simple agentless passive to describe
-the procedure used by the other researcher whose work you are citing (the
-samples were collected using a suction tube).}
-
-\emph{One way to make sure that your own contribution is clear and easy
-to identify is by marking it with words --- perhaps by adding phrases
-like} \textbf{In this study}, \emph{the samples were collected using a suction tube or} \textbf{In
-our experiments} \emph{the samples were collected using a suction tube, and by
-identifying the procedure used by other researchers with careful references
-at the appropriate place in the sente}
-
 \hypertarget{results}{%
 \section*{Results}\label{results}}
 \addcontentsline{toc}{section}{Results}
 
-111\includegraphics{NFPaper_files/figure-latex/AllSols-1.png}
+\begin{figure}
+\centering
+\includegraphics{NFPaper_files/figure-latex/AllSols-1.png}
+\caption{\label{fig:AllSols}Coninuous results of the three algorithms, the highest the value the higher the priority, all values go from 0 to 1.}
+\end{figure}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{For methods:} Since one of the main objectives of prorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are zome important
+  \textbf{For methods:} Since one of the main objectives of priorization methods is to rank the cells within an area, we used Spearman's rho correlation, that estimates the rank-based measure of association. We also calculated a local Spearman correlation on a matrix of five by five cells, in order to figure out if there are some important
 \end{itemize}
 
-The results of all three algorithms is shonw in figure \ref{fig:AllSols}, at first glance, the thre algorithms havee very similar results, however, when we look at the Spearman correlation of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \ref{fig:LocalCorr}), we see that for the most part, the local correlations are all mostly possitive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local priorization, that is mostly localized
+There are two ways of trying to look at the results, as a continuous layer, as in figure \ref{fig:AllSols}, or as a binary solution as in fig \ref{fig:Binary}, where the cells in red are the top 10\% ranked cells to be protected. At first glance, the three algorithms have very similar results. In all three methods the Andes mountains appear to have the highest priorities in particular the Northwest Andean montane forests, Eastern Cordillera Real montane forests, Venezuelan Andes montane forests, Cordillera Oriental montane forests, and the Cauca and Magdalena Valley montane forests, outside of the Andes mountains the ecorregions that have the highest priorities are Guianan Highlands moist forests, Pantepui forests \& shrub-lands and Cordillera La Costa montane forests. Furthermore, when we look at the top 10\% cells selected by the algorithms (Figures \ref{fig:Binary} and \ref{fig:NumberOfTimes}), we see that of all the cells that were selected at least by one algorithm 62.91\% of the cells were selected by all three algorithm, which show the level of concordance between cells, 18.85\% were selected by two of the algorithms and only 18.24\% of the cells selected were chosen by only one of the methods.
 
-when we look at the boxplot of local correlation values (figure \ref{fig:Boxplot}), we see that the lower whiskers in the comparizon of both NetworkFlow methods with Zonation, are bellow zero
+However, when we look at the Spearman correlation (table \ref{tab:Corr}), of all three methods we start seeing some important differences, where Quadratic and Linear Network flow have a spearman correlation of 0.92, but both methods have a smaller correlation with zonation, with Quadratic Network Flow having a higher correlation of 0.669, vs linear network flow having a correlation of 0.624 with Zonation. When we look at the local correlation plots (figure \ref{fig:LocalCorr}), we see that for the most part, the local correlations are all mostly positive, specially between both Network Flow algorithms. There are some blue areas in the figure, when comparing those priorities with zonation. Representing some big discrepancies in local prioritization, that is mostly localized
+
+when we look at the box-plot of local correlation values (figure \ref{fig:Boxplot}), we see that the lower whiskers in the comparison of both Network Flow methods with Zonation, are bellow zero
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{For discusion:} One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow.
+  \textbf{For discussion:} One of the main problems at comparing Network Flow vs Zonation, is that Zonation will give a rank to each and every cell in the study area, which is not true for Network Flow. It comes as no surprise that Quadratic Network flow has a higher correlation with Zonation than Linear Network flow, the intended result of quadratic network flow being more similar to zonation than linear network flow.
 \end{itemize}
 
 \hypertarget{efficiency-comparison-number-of-cells}{%
 \subsubsection{Efficiency comparison (Number of cells)}\label{efficiency-comparison-number-of-cells}}
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-5-1.png}
+\begin{figure}
+\centering
+\includegraphics{NFPaper_files/figure-latex/Binary-1.png}
+\caption{\label{fig:Binary}Binary solution for the cells with the top 10\% value of ranked priority}
+\end{figure}
+
 In this example when we calculate the top 10\% of protected cells for Quadratic Network Flow we get 22,671 cells, 22,586 cells for linear Network Flow, and 22,671 cells for Zonation.
 
-\includegraphics{NFPaper_files/figure-latex/unnamed-chunk-6-1.png}
+\begin{figure}
+\centering
+\includegraphics{NFPaper_files/figure-latex/NumberOfTimes-1.png}
+\caption{\label{fig:NumberOfTimes}This map shows how many algorithms selected each cell}
+\end{figure}
 
 \hypertarget{correlation-comparison-spearman}{%
 \subsubsection{Correlation comparison (Spearman)}\label{correlation-comparison-spearman}}
 
-\begin{table}[H]
+\begin{table}
+
+\caption{\label{tab:Corr}Spearman correlation between the rank of the cells of all three methods}
 \centering
-\begin{tabular}{lrrr}
+\begin{tabular}[t]{lrrr}
 \toprule
 rowname & Linear.NF & Quadratic.NF & Zonation\\
 \midrule
@@ -282,7 +279,7 @@ Zonation & 0.6241322 & 0.6690281 & NA\\
 
 \begin{figure}
 \centering
-\includegraphics{NFPaper_files/figure-latex/LocalCorr-1.pdf}
+\includegraphics{NFPaper_files/figure-latex/LocalCorr-1.png}
 \caption{\label{fig:LocalCorr}Box plot of local correlations between all three different methods of priorization}
 \end{figure}
 
