@@ -142,7 +142,7 @@ Land Cover and Land Use. Areas of existing built up land or intensive agricultur
 
 ## Cost layer
 
-
+We used a 2.5 minutes downscaled version of @naidoo2007global layer of costs in order to estimate the cost per hectare for each area, and then we modified that layer using the World Database on Protected Areas (WDPA) [@unep2018ngs], and land-cover [@tuanmu2014global]. If a cell of the cost layer was inside a proteced area, this was multiplied by zero, and if it was outside of a protected area it was multiplied by one.
 
 ## Model Description
 
