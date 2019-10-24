@@ -172,6 +172,51 @@ Four GCM models were selected to project the species distribution using the GCMc
 \hypertarget{niche-modelling}{%
 \subsection{Niche modelling}\label{niche-modelling}}
 
+\hypertarget{bien-data-standardization-workflow.}{%
+\subsubsection{BIEN Data Standardization Workflow.}\label{bien-data-standardization-workflow.}}
+
+The BIEN database is generated via a linked workflow that imports and integrates heterogeneous data structures (including Darwin Core (48) , plus a variety of project-specific schemas and exchange formats), and then performs multiple corrections and validations. The BIEN workflow is described at \url{http://bien.nceas.ucsb.edu/bien/tools/} and in the following references (49-53). In addition to correcting erroneous original content and standardizing variant spellings to a single canonical form, corrections also remove or flag erroneous content when the correct meaning cannot be determined). Validations delete erroneous records and add annotations that can be used to filter low-quality data and data useful for some analyses but not others (e.g., observations of introduced or cultivated species).
+
+The two major classes of corrections are taxonomic name resolution and geographic name resolution. Taxonomy is standardized using the Taxonomic Name Resolution Service (TNRS; (49) ), which corrects spelling errors in scientific names, standardizes variant spelling and updates synonyms to accepted names. Additional code detects cross-code homonyms (e.g.~plant and animal species with identical names) and flags non-plant observations for removal. The names of political divisions (e.g.~country, state/ province, county/parish) are standardized using the Geographic Name Resolution Service (GNRS; \url{https://github.com/ojalaquellueva/gnrs}) which corrects spelling errors and matches codes (e.g., ISO, FIPS), abbreviations, variant spellings and alternative names in multiple languages to standard political divisions in the GeoNames gazetteer (\url{https://www.geonames.org}).
+
+The two major classes of validations are geographic validation and species status validation. Checks performed by geographic validations include (1) coordinate values outside coordinate system (e.g., longitudes larger than 180 degrees or smaller than -180), (2) likely erroneous coordinate values (latitude is exactly 0 or 90 or longitude is exactly 0 or 180, (3) coordinates in the ocean, (4) coordinate matches a centroid (centroid detection) and (5) coordinates outside lowest declared political division (political division validation). Centroid detection and political division validation used administrative boundaries from the Database of Global Administrative Areas (GADM; \url{http://www.gadm.org}), with political division names standardized by the GNRS (see above). Species status validations checked for (1) species falling outside their native ranges and (2) observations of human-cultivated plants. Observations species outside of their native range were identified using the Native Species Resolver (NSR; \url{https://github.com/ojalaquellueva/nsr}), which uses published country and state checklists to determine if the observed species is native to the lowest declare political divisions. List of endemic taxa are also used to detect non-native occurrences outside the region of endemism. and endemism data. Observations were flagged as cultivated based on (1) keywords in the specimen locality data suggesting provenance from a farm or garden, or (2) geographic proximity (\(\leq\) 3 km) to a botanical garden or herbarium, or (3) original observation metadata indicating a cultivated origin.
+
+For these analyses we excluded records if (1) they lacked a scientific name resolved to at least the species level; (2) they did not come from a land plant (Embryophyta); (3) they failed one or more geographic validations; (4) the species was flagged as potentially non-native to the region of observation; (5) the plant was flagged as potentially cultivated; 5) the observation did not originate from either plot or specimen data.
+
+\hypertarget{bien-data-sources.}{%
+\subsubsection{BIEN Data Sources.}\label{bien-data-sources.}}
+
+The BIEN data mainly comprise herbarium collections, ecological plots and surveys (53-60), and trait observations. For details of specimen data sources see Table S2 of Maitner et al.~2017 (50). A full listing of the herbaria data used are given in the Acknowledgements section. The observations in the BIEN database are the product of contributions by 1076 different data contributors, including numerous individual herbaria, data indexers of herbarium or plot data. Of the herbaria, over 550 are listed in Index Herbarium. Additionally, BIEN 4.1 includes data from RAINBIO, TEAM, The Royal Botanical Garden of Sydney, Australia, and NeoTropTree. Plot data within BIEN are from the CVS, NVS, SALVIAS, VEGBANK, CTFS, FIA, MADIDI, and TEAM data networks and datasets (see \url{http://bien.nceas.ucsb.edu/bien/data-contributors/all/}).
+
+A summary of all of the botanical data in the (BIEN 4.1) database include: Total observations: 206,241,288 which stem from 63,498,238 observations from specimen data, 17,430,379 observations fro plot and survey observations. Plot observations originate from 364,477 plots. Multiple observations of the same species from a single plot were counted as a single `plot' observation. For details of plot data sources see Table S1 of Maitner et al.~2017 (50). The final number of the total number of specimen observations used in our analyses after passing through our pipeline was 9,345,197. For each species we counted the total number of occurrences that were recorded in each dataset.
+
+Vertebrates. Point occurrences for global restricted range bird species (61). Point occurrences for tropical vertebrates (GBIF, VertNet). Occurrences with geovalid coordinates. Occurrences more recent than 1950. Human observations only (no fossil records or museum specimens). Political centroids and locations with zeros removed. Spatial outliers -- more than 500km from IUCN range polygon or \textgreater{}98th percentile of latitude + longitude. Expert range maps polygons for all available mammals, birds, reptiles were used as a means of model and occurrence record validation (61-62)
+
+\hypertarget{species-distribution-models.}{%
+\subsubsection{Species Distribution Models.}\label{species-distribution-models.}}
+
+Species distribution models were produced with Maxent (63) for species with over 10 unique occurrence records (i.e.~unique 1km grid cells in the modelling domain). Maxent settings followed the recommendations of Merow et al.~2013 and Merow et al.~2014 to produce relatively less complex models (e.g.~limiting features to linear, quadratic, and product functions) to minimize overfitting (64-65). Modeling domains were limited to a spatial buffer of 500km within any geovalid occurrence record. Background sampling for pseudoabsence point was a random sample of 50,000 points. Five model replicates were used in fitting the model. Average of five replicates was used for final species model in baseline climate -- and those fitted parameters were used for all projections into future climates. 30\% of occurrence records were reserved to assess model performance.
+
+Environmental Predictor Variables. The following bioclimatic variables from downscaled 20-year normals (66) based on pan-tropical correlation analysis and ability to describe the climate for a given location. When presented with the choice of two variables that were otherwise closely correlated, we selected the variable that were not combinations of temperature and precipitation or relied on monthly segmentation of the yearly climate (e.g.~precipitation in the warmest quarter).
+
+\begin{itemize}
+\tightlist
+\item
+  Mean annual temperature (BIO1)
+\item
+  Mean diurnal temperature range (BIO2)
+\item
+  Seasonality of temperature (BIO4)
+\item
+  Minimum temperature of the coldest month (BIO6)
+\item
+  Mean annual precipitation (BIO12)
+\item
+  Seasonality of precipitation (BIO15)
+\end{itemize}
+
+Accumulated Aridity Index. To account for the effect of dry season length and the water deficit experienced by vegetation during dry periods we derived and accumulated aridity index that identifies the maximum duration and accumulated water deficit for consecutive months where potential evapotranspiration exceeds mean monthly precipitation. The accumulated aridity index is the sum of the month aridity (precipitation -- PET) for the maximum run of consecutive months where (PET \textgreater{} precipitation).
+
 For each species the species distribution model was fit using the dismo package (Hijmans et al. 2017), using 50,000 random background points and the maxent algorithm (Phillips, Anderson, and Schapire 2006; Merow, Smith, and Silander Jr 2013)
 
 \hypertarget{model-description}{%
@@ -304,6 +349,28 @@ conflict of interest.
 \section*{Author Contributions}\label{author-contributions}}
 \addcontentsline{toc}{section}{Author Contributions}
 
+When determining authorship the following criteria should be observed:
+
+\begin{itemize}
+\tightlist
+\item
+  Substantial contributions to the conception or design of the work; or the
+  acquisition, analysis, or interpretation of data for the work; AND
+\item
+  Drafting the work or revising it critically for important intellectual
+  content; AND
+\item
+  Final approval of the version to be published ; AND
+\item
+  Agreement to be accountable for all aspects of the work in ensuring that
+  questions related to the accuracy or integrity of any part of the work are
+  appropriately investigated and resolved.
+\end{itemize}
+
+Contributors who meet fewer than all 4 of the above criteria for authorship
+should not be listed as authors, but they should be acknowledged.
+(\url{http://www.icmje.org/roles_a.html})
+
 The statement about the authors and contributors can be up to several sentences
 long, describing the tasks of individual authors referred to by their initials
 and should be included at the end of the manuscript before the References
@@ -340,7 +407,12 @@ The species used for the solution were the folowing:
 
 Aa maderoi, Abutilon ibarrense, Achyrocline crassiceps, Aciachne flagellifera, Aechmea drakeana, Aegiphila pennellii, Aequatorium sinuatifolium, Aequatorium verrucosum, Aetheolaena involucrata, Aetheolaena lingulata, Ageratina asclepiadea, Ageratina dendroides, Ageratina gynoxoides, Ageratina pseudochilca, Ageratina theaefolia, Ageratina vacciniaefolia, Agouticarpa grandistipula, Agrostis boyacensis, Agrostis foliata, Agrostis trichodes, Aiphanes grandis, Altensteinia virescens, Amazilia castaneiventris, Anagallis foemina, Anastrophyllum nigrescens, Andigena laminirostris, Anomobryum prostratum, Anotomys leander, Anredera brachystachys, Anthopterus schultzeae, Anthurium aristatum, Anthurium carchiense, Anthurium cordiforme, Anthurium flavolineatum, Anthurium giganteum, Anthurium gualeanum, Anthurium herthae, Anthurium lancea, Anthurium membranaceum, Anthurium morae, Anthurium palenquense, Anthurium pallatangense, Anthurium pedunculare, Anthurium pendulispadix, Anthurium phyllobaris, Anthurium rimbachii, Anthurium rugulosum, Anthurium wattii, Aphanactis jamesoniana, Aphanactis ollgaardii, Aphanactis piloselloides, Aragoa abietina, Aragoa cundinamarcensis, Aragoa occidentalis, Arcytophyllum aristatum, Arenaria venezuelana, Aristeguietia glutinosa, Arracacia moschata, Arremon phaeopleurus, Astragalus geminiflorus, Astragalus sprucei, Atlapetes flaviceps, Atlapetes leucopis, Atractus crassicaudatus, Atractus lasallei, Axinaea merianiae, Axinaea sodiroi, Azorella aretioides, Azorella cuatrecasasii, Azorella pedunculata, Baccharis revoluta, Baccharis rupicola, Baccharis teindalensis, Badilloa salicina, Bangsia aureocincta, Bangsia edwardsi, Bangsia rothschildi, Bartsia laticrenata, Bartsia orthocarpiflora, Bartsia santolinifolia, Bartsia stricta, Bauhinia stenantha, Begonia tiliifolia, Belloa radians, Berberis goudotii, Berberis hallii, Berberis rigidifolia, Berberis verticillata, Besleria angustiflora, Blakea glandulosa, Blakea hispida, Blakea oldemanii, Blakea rotundifolia, Bolborhynchus ferrugineifrons, Bomarea glaucescens, Bomarea linifolia, Bomarea patacocensis, Bomarea uncifolia, Brachtia andina, Brachyotum alpinum, Brachyotum confertum, Brachyotum fictum, Brachyotum gleasonii, Brachyotum harlingii, Brachyotum jamesonii, Brachyotum strigosum, Brayopsis colombiana, Breutelia squarrosa, Breutelia trianae, Browneopsis disepala, Brugmansia aurea, Brunellia boqueronensis, Brunellia colombiana, Bucquetia glutinosa, Buddleja pichinchensis, Burmeistera montipomum, Calamagrostis aurea, Calamagrostis effusa, Calamagrostis fibrovaginata, Calamagrostis guamanensis, Calamagrostis mollis, Calamagrostis podophora, Calceolaria dilatata, Calceolaria ferruginea, Calceolaria hyssopifolia, Calceolaria lamiifolia, Calceolaria pedunculata, Calceolaria purpurascens, Calceolaria rosmarinifolia, Calliergonella cuspidata, Campylopus argyrocaulon, Campylopus cleefii, Campylopus cucullatifolius, Campylopus edithae, Campylopus incertus, Campylopus pittieri, Campylopus subconcolor, Carex amicta, Casearia mexiae, Castilleja nubigena, Castratella piloselloides, Centradeniastrum album, Centropogon aequatorialis, Centropogon baezanus, Centropogon glabrifilis, Centropogon medusa, Centropogon nigricans, Centropogon subandinus, Cerastium floccosum, Ceratostema alatum, Cestrum peruvianum, Chalcostigma heteropogon, Chorisodontium speciosum, Chromolaena bullata, Chusquea subulata, Cinclodes excelsior, Cistothorus apolinari, Cistothorus meridae, Citharexylum sulcatum, Clavija eggersiana, Clethra crispa, Clinopodium nubigenum, Clinopodium taxifolium, Clinopodium tomentosum, Clusia callejasii, Coespeletia moritziana, Coespeletia spicata, Coespeletia thyrsiformis, Coespeletia timotensis, Colignonia pentoptera, Columnea albiflora, Columnea capillosa, Columnea ciliata, Columnea eubracteata, Conirostrum rufum, Conyza cardaminifolia, Conyza trihecatactis, Coursetia gracilis, Coussarea pilosiflora, Cranichis antioquiensis, Cranioleuca hellmayri, Critoniopsis occidentalis, Critoniopsis palaciosii, Critoniopsis sodiroi, Cronquistianthus niveus, Croton elegans, Croton rimbachii, Cryptotis equatoris, Culcitium nivale, Cyanolyca pulchra, Cynanchum microphyllum, Dalea humifusa, Dasyphyllum popayanense, Dendrophorbium lloense, Diglossa gloriosa, Diglossa gloriosissima, Diglossa indigotica, Diplostephium alveolatum, Diplostephium bicolor, Diplostephium cayambense, Diplostephium cinerascens, Diplostephium ericoides, Diplostephium frontinense, Diplostephium glandulosum, Diplostephium hartwegii, Diplostephium ochraceum, Diplostephium phylicoides, Diplostephium revolutum, Diplostephium rhododendroides, Diplostephium rhomboidale, Diplostephium rupestre, Diplostephium schultzii, Diplostephium spinulosum, Diplostephium tenuifolium, Diplostephium tolimense, Diplostephium violaceum, Diplostichum longirostre, Distichia acicularis, Ditrichum submersum, Draba aretioides, Draba hallii, Draba obovata, Draba splendens, Draba spruceana, Dracula sodiroi, Drepanocladus exannulatus, Drymonia crenatiloba, Drymonia laciniosa, Dysithamnus occidentalis, Elaphoglossum antisanae, Elaphoglossum heliconiifolium, Elaphoglossum yatesii, Elasis hirsuta, Elatine ecuadoriensis, Elleanthus gastroglottis, Elleanthus petrogeiton, Epidendrum englerianum, Epidendrum marsupiale, Epidendrum pallatangae, Epidendrum pichinchae, Epidendrum porphyreum, Eragrostis condensata, Erigeron ecuadoriensis, Eriocnemis cupreoventris, Eriocnemis derbyi, Eriocnemis mosquera, Eryngium humboldtii, Espeletia argentea, Espeletia barclayana, Espeletia batata, Espeletia boyacensis, Espeletia brassicoidea, Espeletia cleefii, Espeletia congestiflora, Espeletia conglomerata, Espeletia frontinoensis, Espeletia grandiflora, Espeletia hartwegiana, Espeletia killipii, Espeletia lopezii, Espeletia murilloi, Espeletia pycnophylla, Espeletia schultesiana, Espeletia schultzii, Espeletia semiglobulata, Espeletia summapacis, Espeletia tunjana, Espeletia uribei, Espeletiopsis colombiana, Espeletiopsis corymbosa, Espeletiopsis pannosa, Espeletiopsis petiolata, Eudema nubigena, Euphonia concinna, Festuca andicola, Festuca chimborazensis, Festuca glumosa, Festuca subulifolia, Festuca vaginalis, Fuchsia ampliata, Fuchsia caucana, Fuchsia dependens, Fuchsia hartwegii, Fuchsia macrostigma, Fuchsia orientalis, Fuchsia sessilifolia, Fuchsia sylvatica, Fuchsia vulcanica, Gasteranthus columbianus, Gasteranthus lateralis, Gasteranthus leopardus, Gasteranthus quitensis, Gaultheria cordifolia, Geissanthus argutus, Genista monspessulana, Gentianella cerastioides, Gentianella cernua, Gentianella corymbosa, Gentianella foliosa, Gentianella hirculus, Gentianella hyssopifolia, Gentianella nummulariifolia, Gentianella rapunculoides, Gentianella rupicola, Geonoma divisa, Geranium maniculatum, Geranium multiceps, Geranium multipartitum, Glaucidium nubicola, Gongylolepis jauaensis, Grallaria alleni, Grallaria flavotincta, Grallaria milleri, Grallaria rufocinerea, Grallaricula lineifrons, Grallaricula loricata, Grosvenoria hypargyra, Grosvenoria rimbachii, Gustavia longifuniculata, Gustavia serrata, Guzmania jaramilloi, Guzmania lehmanniana, Guzmania vanvolxemii, Guzmania wittmackii, Gynoxys acostae, Gynoxys hirsuta, Gynoxys laurata, Gynoxys miniphylla, Gynoxys parvifolia, Gynoxys pendula, Gynoxys sodiroi, Gynoxys stuebelii, Gynoxys tolimensis, Halenia adpressa, Halenia gentianoides, Halenia pulchella, Haplophaedia lugens, Hebeclinium tetragonum, Hedyosmum parvifolium, Heliangelus strophianus, Heliconia dielsiana, Heppiella verticillata, Hesperomeles goudotiana, Hieracium avilae, Huperzia capellae, Huperzia cruenta, Huperzia cumingii, Huperzia hystrix, Huperzia lindenii, Huperzia llanganatensis, Huperzia polydactyla, Huperzia rufescens, Huperzia transilla, Huperzia unguiculata, Hypericum decandrum, Hypericum goyanesii, Hypericum myricariifolium, Hypericum prostratum, Hypericum quitense, Hypochaeris setosa, Inga extra-nodis, Isoetes andina, Isoetes bischlerae, Isoetes boyacensis, Isoetes novo-granadensis, Isoetes palmeri, Jamesonia bogotensis, Jamesonia cinnamomea, Jamesonia pulchra, Juncus breviculmis, Juncus echinocephalus, Juncus ecuadoriensis, Lachemilla angustata, Lachemilla hirta, Lachemilla hispidula, Lachemilla holosericea, Lachemilla jamesonii, Lachemilla nivalis, Lachemilla rupestris, Lachemilla tanacetifolia, Lasiocephalus ovatus, Ledothamnus luteus, Lepanthes effusa, Lepanthes pilosella, Lepechinia vulcanicola, Lepidozia macrocolea, Leptodontium erythroneuron, Leptoscyphus cleefii, Leptotila conoveri, Liabum saloyense, Llerasia hypoleuca, Loricaria antisanensis, Loricaria complanata, Loricaria ilinissae, Lourteigia humilis, Lourteigia microphylla, Lupinus alopecuroides, Lupinus colombiensis, Lupinus smithianus, Lysipomia montioides, Lysipomia muscoides, Macleania bullata, Macleania coccoloboides, Macleania cordifolia, Macleania ericae, Macleania loeseneriana, Macrocarpaea glabra, Margarornis stellatus, Masdevallia ophioglossa, Matisia palenquiana, Mauritiella macroclada, Melothria longituba, Melpomene assurgens, Melpomene sodiroi, Meriania heptamera, Meriania hernandoi, Metallura baroni, Metallura williami, Mezobromelia lyman-smithii, Miconia aguirrei, Miconia biappendiculata, Miconia chlorocarpa, Miconia dielsii, Miconia glandulistyla, Miconia hymenanthera, Miconia nodosa, Miconia pernettifolia, Miconia pichinchensis, Miconia psychrophila, Miconia scutata, Miconia summa, Miconia turgida, Mimosa quitensis, Mimosa townsendii, Mona meridensis, Monnina crassifolia, Monnina equatoriensis, Monnina obtusifolia, Monnina pseudopilosa, Monnina revoluta, Monnina sodiroana, Monnina tenuifolia, Monticalia arbutifolia, Monticalia peruviana, Monticalia vaccinioides, Morella singularis, Muscisaxicola alpinus, Mutisia grandiflora, Mutisia microphylla, Mutisia sodiroi, Myioborus albifrons, Myrrhidendron glaucescens, Myrsine panamensis, Niphogeton azorelloides, Niphogeton glaucescens, Niphogeton josei, Notopleura marginata, Nototriche jamesonii, Nototriche phyllanthos, Odontoglossum hallii, Odontophorus atrifrons, Odontophorus melanonotus, Oncidium serratum, Opuntia soederstromiana, Oreobolus cleefii, Oreopanax corazonensis, Oreopanax ecuadorensis, Oreopanax ellsworthii, Oreopanax grandifolius, Oreopanax mutisianus, Oreopanax nigrum, Oreopanax palamophyllus, Oreopanax ruizanus, Oreothraupis arremonops, Oreotrochilus chimborazo, Ossaea sessilifolia, Oxypogon guerinii, Paepalanthus alpinus, Paepalanthus karstenii, Paepalanthus lodiculoides, Palicourea prodiga, Palicourea sodiroi, Palicourea subalatoides, Pappobolus imbaburensis, Paspalum hirtum, Passiflora adulterina, Passiflora crispolanata, Passiflora cuatrecasasii, Passiflora jamesonii, Passiflora roseorum, Passiflora trinervia, Pedicularis incurva, Pentacalia abietina, Pentacalia americana, Pentacalia arbutifolia, Pentacalia flosfragrans, Pentacalia guadalupe, Pentacalia ledifolia, Pentacalia nitida, Pentacalia pulchella, Pentacalia reissiana, Pentacalia vaccinioides, Pentacalia vernicosa, Pentagonia grandiflora, Peperomia fuscipunctata, Peperomia miqueliana, Pernettya hirta, Phalcoboenus carunculatus, Philodendron oligospermum, Philodendron rugosum, Philonotis andina, Pilea gallowayana, Pinguicula elongata, Piper laguna-cochanum, Piper sodiroi, Piper subflavum, Pipreola jucunda, Pitcairnia commixta, Pitcairnia cosangaensis, Pitcairnia fusca, Pittosporum undulatum, Plagiocheilus frigidus, Plagiocheilus solivaeformis, Pleurothallis ensata, Pleurothallis macra, Pleurothallis truncata, Plutarchia guascensis, Poa cucullata, Poa paramoensis, Poa pauciflora, Polylepis lanuginosa, Polylepis quadrijuga, Polylepis reticulata, Polypodium mindense, Polypodium monosorum, Polypodium segregatum, Polytrichadelphus ciliatus, Pouteria capacifolia, Prunus antioquensis, Prunus herthae, Psammisia debilis, Psammisia occidentalis, Psammisia sclerantha, Psychotria boqueronensis, Psychotria cuatrecasasii, Puya glomerifera, Puya goudotiana, Puya nitida, Puya santosii, Puya trianae, Pyrrhura hoematotis, Racinaea subalata, Rallus semiplumbeus, Ranunculus nubigenus, Renealmia fragilis, Renealmia sessilifolia, Rhodospatha densinervia, Rhodostemonodaphne laxa, Rhynchospora paramora, Ribes hirtum, Ribes lehmannii, Rubus choachiensis, Rubus gachetensis, Ruilopezia atropurpurea, Ruilopezia marcescens, Rumex tolimensis, Saguinus leucopus, Salvia pichinchensis, Saurauia chiliantha, Saurauia crassisepala, Saurauia omichlophila, Saurauia peduncularis, Saurauia pseudostrigillosa, Schefflera acaropunctata, Schefflera lasiogyne, Schefflera marginata, Schefflera ramosissima, Scorpidium scorpioides, Scytalopus griseicollis, Scytalopus rodriguezi, Scytalopus vicinior, Senecio culcitioides, Senecio formosoides, Senecio hypsobates, Senecio leucanthemoides, Senecio madagascariensis, Senecio niveoaureus, Senecio subruncinatus, Setaria cernua, Siparuna croatii, Siparuna palenquensis, Siphocampylus affinis, Siphocampylus brevicalyx, Siphocampylus columnae, Solanum crinitipes, Solanum paucijugum, Sorocea sarcocarpa, Sparrmannia africana, Sphaeradenia hamata, Sphaeradenia horrida, Sphagnum compactum, Sphagnum oxyphyllum, Sphyrospermum boekei, Sphyrospermum grandifolium, Sporobolus bogotensis, Stachys bogotensis, Stachys elliptica, Stelis columnaris, Stelis piperina, Stellaria recurvata, Stenospermation longifolium, Stilpnophyllum grandifolium, Stilpnophyllum oellgaardii, Stipa milleana, Stipa rosea, Symphyogyna bogotensis, Symplocos cundinamarcensis, Symplocos rhomboidea, Symplocos theiformis, Synallaxis castanea, Synallaxis subpudica, Syntrichia andicola, Tagetes zypaquirensis, Tangara rufigenis, Telipogon nervosus, Ternstroemia cleistogama, Terpsichore heteromorpha, Terpsichore pichinchae, Tetragastris varians, Thelypteris rigescens, Themistoclesia epiphytica, Theobroma gileri, Thibaudia andrei, Thibaudia grantii, Thibaudia parvifolia, Thomasomys hylophilus, Thomasomys niveipes, Thryophilus nicefori, Tibouchina gleasoniana, Tibouchina paleacea, Tibouchina pendula, Tillandsia emergens, Tillandsia incarnata, Tillandsia lajensis, Tillandsia secunda, Tillandsia superba, Tillandsia truncata, Tournefortia ramosissima, Uncinia paludosa, Uniola condensata, Urothraupis stolzmanni, Urtica longispica, Valeriana adscendens, Valeriana arborea, Valeriana bracteata, Valeriana tatamana, Valeriana tomentosa, Verbesina brachypoda, Verbesina latisquama, Verbesina lloensis, Verbesina sodiroi, Viburnum anabaptista, Viburnum antioquiense, Vigna venusta, Viola glandularis, Vireo masteri, Weinmannia polyphylla, Wettinia anomala, Xenophyllum crassum, Zanthoxylum lepidopteriphilum, Zygodon pichinchensis
 
---\textgreater{}
+Soils Variables. The following soils variables were also used in species distribution models. All variables were obtained from Soilgrids (67). Variables with multiple strata available are the mean of the top 1m (strata 1-4). --\textgreater{} --\textgreater{}
+* depth to bedrock
+* pH
+* clay proportion\\
+* silt proportion
+* bulk density
 
 --\textgreater{}
 
@@ -348,44 +420,12 @@ Aa maderoi, Abutilon ibarrense, Achyrocline crassiceps, Aciachne flagellifera, A
 
 --\textgreater{}
 
---\textgreater{}
+\hypertarget{prioritization-methods.}{%
+\subsubsection{Prioritization Methods.}\label{prioritization-methods.}}
 
---\textgreater{}
+Zonation ranks all cells in a landscape according to their value and removes cells of lowest value at each processing step. Values are then recalculated for all remaining cells at each step. Core area zonation removal algorithm was used this assigns value to a cell from the highest value species present in that cell at each step of removal. Species with smaller ranges have few cells that are critical for their conservation these cells therefore tend to have high values. By contrast, wide ranging species have more opportunities to be conserved -- so are typically lower value until only the core range remains. Warp factor (number of cells removed at each step) for all analysis was set to 1 to maximize the accuracy of the rank order assigned. All prioritizations used edge removal and boundary length penalty of 1.
 
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
- --\textgreater{}
- --\textgreater{}
- --\textgreater{}
- --\textgreater{}
- --\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
- --\textgreater{}
- --\textgreater{}
- --\textgreater{}
- --\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
-
---\textgreater{}
+Land Cover and Land Use. Areas of existing built up land or intensive agriculture were removed from the analysis and therefore those cells are not part of the prioritization solution. Built up and agricultural areas were defined as \textgreater{}50\% of pixel coverage for `urban' and `agriculture' classes from the 1km global consensus land cover dataset produced by Tuanmu et al.~2014 (71). Existing protected areas (40) are solved first so that the priorities take existing protection into account.
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-Ahuja93}{}%
