@@ -151,11 +151,6 @@ The studied area was the Northern Tropical Andes, consisting of the countries of
 
 The studied area is shown in figure \ref{fig:MapArea} and it encompasses 3,632,762 square kilometres
 
-\hypertarget{species}{%
-\subsection{Species}\label{species}}
-
-671 species of plants and vertebrates were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials
-
 \hypertarget{global-circulation-models}{%
 \subsection{Global circulation models}\label{global-circulation-models}}
 
@@ -169,29 +164,34 @@ For each species, a network of dispersion into each time-slice was generated usi
 
 Four GCM models were selected to project the species distribution using the GCMcompareR shiny app (Fajardo, Corcoran, Roehrdanz, Hannah, \& Marquet, 2018), we followed the story-lines approach (Zappa \& Shepherd, 2017) and selected a GCM warmer and wetter, warmer and dryer, colder and wetter, and colder and dryer than the ensemble. The selected models where cc, cn, la, mp al the process is shown in in figure \ref{fig:Diagrama}.
 
-\hypertarget{niche-modelling}{%
-\subsection{Niche modelling}\label{niche-modelling}}
+\hypertarget{species}{%
+\subsection{Species}\label{species}}
 
-\hypertarget{bien-data-standardization-workflow.}{%
-\subsubsection{BIEN Data Standardization Workflow.}\label{bien-data-standardization-workflow.}}
+671 species of plants and vertebrates were used for the model, only endemic species were used in this study. A list can be found in the supplementary materials. The presences for Plants and Vertebrates were gather using different databases and methodologies which will be discussed in the following sections
 
-The BIEN database is generated via a linked workflow that imports and integrates heterogeneous data structures (including (Baker, Rycroft, \& Smith, 2014), plus a variety of project-specific schemas and exchange formats), and then performs multiple corrections and validations. The BIEN workflow is described at \url{http://bien.nceas.ucsb.edu/bien/tools/} and in the following references (49-53). In addition to correcting erroneous original content and standardizing variant spellings to a single canonical form, corrections also remove or flag erroneous content when the correct meaning cannot be determined). Validations delete erroneous records and add annotations that can be used to filter low-quality data and data useful for some analyses but not others (e.g., observations of introduced or cultivated species).
+\hypertarget{plants}{%
+\subsubsection{Plants}\label{plants}}
 
-The two major classes of corrections are taxonomic name resolution and geographic name resolution. Taxonomy is standardized using the Taxonomic Name Resolution Service (Boyle et al., 2013), which corrects spelling errors in scientific names, standardizes variant spelling and updates synonyms to accepted names. Additional code detects cross-code homonyms (e.g.~plant and animal species with identical names) and flags non-plant observations for removal. The names of political divisions (e.g.~country, state/ province, county/parish) are standardized using the Geographic Name Resolution Service (Boyle, 2019a) which corrects spelling errors and matches codes (e.g., ISO, FIPS), abbreviations, variant spellings and alternative names in multiple languages to standard political divisions in the GeoNames gazetteer (\url{https://www.geonames.org}).
+For plants, all presences were collected from the BIEN database. The BIEN database is a product of a workflow of several tools, which resoves and corrects sinonymous taxa using the Taxonomic Name Resolution Service (Boyle et al., 2013), validates and eliminates or flags suspiciuous coordinates using the Geographic Name Resolution Service (Boyle, 2019) and also eliminating erroneous coordinates
 
-The two major classes of validations are geographic validation and species status validation. Checks performed by geographic validations include (1) coordinate values outside coordinate system (e.g., longitudes larger than 180 degrees or smaller than -180), (2) likely erroneous coordinate values (latitude is exactly 0 or 90 or longitude is exactly 0 or 180, (3) coordinates in the ocean, (4) coordinate matches a centroid (centroid detection) and (5) coordinates outside lowest declared political division (political division validation). Centroid detection and political division validation used administrative boundaries from the Database of Global Administrative Areas (GADM; \url{http://www.gadm.org}), with political division names standardized by the GNRS (see above). Species status validations checked for (1) species falling outside their native ranges and (2) observations of human-cultivated plants. Observations species outside of their native range were identified using the Native Species Resolver (Boyle, 2019b), which uses published country and state checklists to determine if the observed species is native to the lowest declare political divisions. List of endemic taxa are also used to detect non-native occurrences outside the region of endemism. and endemism data. Observations were flagged as cultivated based on (1) keywords in the specimen locality data suggesting provenance from a farm or garden, or (2) geographic proximity (\(\leq\) 3 km) to a botanical garden or herbarium, or (3) original observation metadata indicating a cultivated origin.
-
-For these analyses we excluded records if (1) they lacked a scientific name resolved to at least the species level; (2) they did not come from a land plant (Embryophyta); (3) they failed one or more geographic validations; (4) the species was flagged as potentially non-native to the region of observation; (5) the plant was flagged as potentially cultivated; 5) the observation did not originate from either plot or specimen data.
+For our research we only included records where the scientific name was clear to the species level, passed all geographic validations, was certain to be a native species, and was not part of a plot.
 
 \hypertarget{vertebrates.}{%
 \subsubsection{Vertebrates.}\label{vertebrates.}}
 
-Point occurrences for global restricted range bird species (61). Point occurrences for tropical vertebrates (GBIF, VertNet). Occurrences with geovalid coordinates. Occurrences more recent than 1950. Human observations only (no fossil records or museum specimens). Political centroids and locations with zeros removed. Spatial outliers -- more than 500km from IUCN range polygon or \textgreater{}98th percentile of latitude + longitude. Expert range maps polygons for all available mammals, birds, reptiles were used as a means of model and occurrence record validation (61-62)
+For vertebrates ocurrences were extracted form GBIF, Vertnet, and Global Restricted range bird species. We only used presences from 1950 onwards, that were recorded by human observation. All centroids and longitudes or latitudes of exactly zero were removed. Points were also removed if they were further than 500 Km from the ranges developed by IUCN.
 
 \hypertarget{species-distribution-models.}{%
 \subsubsection{Species Distribution Models.}\label{species-distribution-models.}}
 
-Species distribution models were produced with Maxent (Phillips, Anderson, \& Schapire, 2006; Merow, Smith, \& Silander Jr, 2013) using the Dismo Package (Hijmans, Phillips, Leathwick, \& Elith, 2017) for species with over 10 unique occurrence records (i.e.~unique 1km grid cells in the modelling domain). Maxent settings followed the recommendations of Merow et al. (2013) and Merow et al. (2014) to produce relatively less complex models (e.g.~limiting features to linear, quadratic, and product functions) to minimize overfitting. Modeling domains were limited to a spatial buffer of 500km within any geovalid occurrence record. Background sampling for pseudoabsence point was a random sample of 50,000 points. Five model replicates were used in fitting the model. Average of five replicates was used for final species model in baseline climate -- and those fitted parameters were used for all projections into future climates. 30\% of occurrence records were reserved to assess model performance.
+The Dismo Package (Hijmans, Phillips, Leathwick, \& Elith, 2017) was used to generate Species Distribution Models with the Maxent algorithm (Phillips, Anderson, \& Schapire, 2006; Merow, Smith, \& Silander Jr, 2013). We used the specifications recomended by Merow et al. (2013) and Merow et al. (2014) to generate models with less overfitting and with less complex responses to variables.
+
+For the backround points we used 50,000 points within a polygon which encompassed all presences plus a 500 Km buffer. We used five replications of models for each species and used 30\% of the presences to test the model.
+
+\hypertarget{environmenta-bariables.}{%
+\paragraph{Environmenta bariables.}\label{environmenta-bariables.}}
+
+For the Species Distribution Models
 
 Environmental Predictor Variables. The following bioclimatic variables from downscaled 20-year normals (66) based on pan-tropical correlation analysis and ability to describe the climate for a given location. When presented with the choice of two variables that were otherwise closely correlated, we selected the variable that were not combinations of temperature and precipitation or relied on monthly segmentation of the yearly climate (e.g.~precipitation in the warmest quarter).
 
@@ -245,10 +245,10 @@ Zonation ranks all cells in a landscape according to their value and removes cel
 
 We used a 2.5 minutes downscaled version of Naidoo \& Iwamura (2007) layer of costs in order to estimate the cost per hectare for each area, and then we modified that layer using the World Database on Protected Areas (WDPA) (UNEP-WCMC, 2018), and land-cover (Tuanmu \& Jetz, 2014). If a cell of the cost layer was inside a proteced area, this was multiplied by zero, and if it was outside of a protected area it was multiplied by one, we only considered Protected areas of classes I and II of (WDPA). The reason for doing that is that if we are doing an excercise of prioritizing areas to be inluded in the global network of protected area, a cell that is already part of it has a cost of zero to be included in the network. On the other hand there are different costs of adding other cells to the same network. Furthermore, every cell that had over 50\% of urbanization or agriculture acording to Tuanmu \& Jetz (2014) was taken out of the possible solutions, this is because areas that are heavily urbanized or intesely used for agriculture might not be suitable for protection, and thus were taken away from the cells in possible solutions.
 
-\hypertarget{model-description}{%
-\subsection{Model Description}\label{model-description}}
+\hypertarget{network-flow}{%
+\subsection{Network Flow}\label{network-flow}}
 
-This model was developed based on the notion of non-overlapping dispersal chains (Williams et al., 2005), and instead of having a binary solution (to protect or not protect an area), the result will be an irreplaceability index going from zero to one. Here, zero means that there are no chains passing by that spacial point that go from the source to the final destination, and one is a point where chains have to pass through to reach the desired flow.
+This model was developed based on the notion of non-overlapping dispersal chains (Williams et al., 2005), we will use two aproaches for this, the linear and quadratic Network Flow. For each species linear network flow will generate areas to be protected Values of one and cells not to be protected (values of zero). Quadratic network flow, on the other hand, will have, for each cell, an irreplaceability index going from zero to one. Here, zero means that there are no chains passing by that spacial point that go from the source to the final destination, and one is a point where chains have to pass through to reach the desired flow.
 In order to do this, we follow Network-flow methods (Ahuja et al., 1993) to model the survival and dispersion of species along the space and time, using species distribution models and quadratic flow costs to split the flow evenly across alternative paths. Therefore, the resulting flow across an arc is high only if there are few alternatives to use that edge to achieve the target flow.
 Even when model takes into account protected areas (cost zero) and human habitat such as cities (cost infinite) in the decision making, both were not included in this exercise to simplify the examples. This is a generalist model which only needs the distribution model of the species projected to each time slice and the maximum dispersal distance for each species.
 
@@ -443,17 +443,11 @@ Alagador, D., Cerdeira, J. O., \& Araújo, M. B. (2014). Shifting protected area
 \leavevmode\hypertarget{ref-araujo2004would}{}%
 Araújo, M. B., Cabeza, M., Thuiller, W., Hannah, L., \& Williams, P. H. (2004). Would climate change drive species out of reserves? An assessment of existing reserve-selection methods. \emph{Global Change Biology}, \emph{10}(9), 1618--1626.
 
-\leavevmode\hypertarget{ref-baker2014linking}{}%
-Baker, M. E., Rycroft, S., \& Smith, V. S. (2014). Linking multiple biodiversity informatics platforms with darwin core archives. \emph{Biodiversity Data Journal}, (2).
-
 \leavevmode\hypertarget{ref-beier2007linkage}{}%
 Beier, P., Majka, D., \& Bayless, T. (2007). Linkage designs for arizona's missing linkages. \emph{Arizona Game and Fish Department, Phoenix}.
 
 \leavevmode\hypertarget{ref-Boyle2019GNRS}{}%
-Boyle, B. (2019a). Geographic name resolution service (gnrs). \emph{GitHub repository}. \url{https://github.com/ojalaquellueva/gnrs}; GitHub.
-
-\leavevmode\hypertarget{ref-Boyle2019NSR}{}%
-Boyle, B. (2019b). Native status resolver (nsr). \emph{GitHub repository}. \url{https://github.com/ojalaquellueva/nsr}; GitHub.
+Boyle, B. (2019). Geographic name resolution service (gnrs). \emph{GitHub repository}. \url{https://github.com/ojalaquellueva/gnrs}; GitHub.
 
 \leavevmode\hypertarget{ref-boyle2013taxonomic}{}%
 Boyle, B., Hopkins, N., Lu, Z., Garay, J. A. R., Mozzherin, D., Rees, T., \ldots{} others. (2013). The taxonomic name resolution service: An online tool for automated standardization of plant names. \emph{BMC Bioinformatics}, \emph{14}(1), 16.
