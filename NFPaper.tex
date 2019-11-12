@@ -176,50 +176,16 @@ Vertebrates ocurrences were extracted form GBIF, Vertnet, and Global Restricted 
 The Dismo Package (Hijmans, Phillips, Leathwick, \& Elith, 2017) was used to generate Species Distribution Models with the Maxent algorithm (Phillips, Anderson, \& Schapire, 2006; Merow, Smith, \& Silander Jr, 2013). We used the specifications recomended by Merow et al. (2013) and Merow et al. (2014) to generate models with less overfitting and with less complex responses to variables.
 For the backround points we used 50,000 points within a polygon which encompassed all presences plus a 500 Km buffer. We used five replications of models for each species and used 30\% of the presences to test the model.
 
-Environmental Predictor Variables. The following bioclimatic variables from downscaled 20-year normals (66) based on pan-tropical correlation analysis and ability to describe the climate for a given location.
+Environmental predictor variables were extracted from Worldclim. The 19 bioclimatic variables were checked for colinearity. If two variables were hightly correlated (over xx\% ), the simpler variable was always selected. Variables that considered precipitation only or temperature only, were always chosen over variables that combined both. When variables average over time, the shortest time where always prefered over longer time periods (e.g.~Minimum temperature of the coldest month would be chosen over minimum temperature of the coldest quarter). The selected layers were: Mean annual temperature (BIO1), mean diurnal temperature range (BIO2), seasonality of temperature (BIO4), Minimum temperature of the coldest month (BIO6), mean annual precipitation (BIO12), and seasonality of precipitation (BIO15).
 
-hightly correlated variables (over xx\% )
+An accumulated aridity index was used in an attempt to consider water defficit and dry season length. To calculate this index, we first find the longest stretch of months where potential evapotranspiration is larger than precipitation. Then, we sum the substraction of precipitation and potential evapotranspiration over this period of time.
 
-When presented with the choice of two variables that were otherwise closely correlated, we selected the variable that were not combinations of temperature and precipitation or relied on monthly segmentation of the yearly climate (e.g.~precipitation in the warmest quarter).
-
-\begin{itemize}
-\tightlist
-\item
-  Mean annual temperature (BIO1)
-\item
-  Mean diurnal temperature range (BIO2)
-\item
-  Seasonality of temperature (BIO4)
-\item
-  Minimum temperature of the coldest month (BIO6)
-\item
-  Mean annual precipitation (BIO12)
-\item
-  Seasonality of precipitation (BIO15)
-\end{itemize}
-
-Accumulated Aridity Index. To account for the effect of dry season length and the water deficit experienced by vegetation during dry periods we derived and accumulated aridity index that identifies the maximum duration and accumulated water deficit for consecutive months where potential evapotranspiration exceeds mean monthly precipitation. The accumulated aridity index is the sum of the month aridity (precipitation -- PET) for the maximum run of consecutive months where (PET \textgreater{} precipitation).
-
-Soils Variables. The following soils variables were also used in species distribution models. All variables were obtained from Soilgrids (De Sousa, Heuvelink, Batjes, \& Kempen, 2018). Variables with multiple strata available are the mean of the top 1m (strata 1-4).
-
-\begin{itemize}
-\tightlist
-\item
-  depth to bedrock
-\item
-  pH
-\item
-  clay proportion\\
-\item
-  silt proportion
-\item
-  bulk density
-\end{itemize}
+Additionaly, five soil variables from Soilgrids (De Sousa, Heuvelink, Batjes, \& Kempen, 2018) were used (depth to bedrock, pH, clay proportion, silt proportion, and bulk density). If one of the variables had multiple strata, we only used the average of the first meter.
 
 \hypertarget{cost-layer}{%
 \subsection{Cost layer}\label{cost-layer}}
 
-We used a 2.5 minutes downscaled version of Naidoo \& Iwamura (2007) layer of costs in order to estimate the cost per hectare for each area, and then we modified that layer using the World Database on Protected Areas (WDPA) (UNEP-WCMC, 2018), and land-cover (Tuanmu \& Jetz, 2014). If a cell of the cost layer was inside a proteced area, this was multiplied by zero, and if it was outside of a protected area it was multiplied by one, we only considered Protected areas of classes I and II of (WDPA). The reason for doing that is that if we are doing an excercise of prioritizing areas to be inluded in the global network of protected area, a cell that is already part of it has a cost of zero to be included in the network. On the other hand there are different costs of adding other cells to the same network. Furthermore, every cell that had over 50\% of urbanization or agriculture acording to Tuanmu \& Jetz (2014) was taken out of the possible solutions, this is because areas that are heavily urbanized or intesely used for agriculture might not be suitable for protection, and thus were taken away from the cells in possible solutions.
+We used a 2.5 minutes downscaled version of Naidoo \& Iwamura (2007) layer of costs in order to estimate the cost per hectare for each area. To generate a cost layer to use for all prioritization algoritms, we modified that layer using the World Database on Protected Areas (WDPA) (UNEP-WCMC, 2018) and land-cover (Tuanmu \& Jetz, 2014): if a cell of the cost layer was inside a proteced area, this was multiplied by zero; if it was outside of a protected area, it was multiplied by one. We only considered protected areas of classes I and II of (WDPA). By doing this, we were able to consider with a cost of zero those areas that are already in the global network of protected areas. Furthermore, every cell that had over 50\% of urbanization or agriculture according to Tuanmu \& Jetz (2014) was taken out of the possible solutions. Our aim with this was to exclude areas that are heavily urbanized or intesely used for agriculture and might not be suitable for protection.
 
 \hypertarget{prioritization-algorithms}{%
 \subsection{Prioritization algorithms}\label{prioritization-algorithms}}
