@@ -113,9 +113,9 @@ We used a 2.5 minutes downscaled version of @naidoo2007global layer of costs in 
 
 ### Network Flow
 
-This model was developed based on the notion of non-overlapping dispersal chains [@williams2005planning], we will use two aproaches for this, the linear and quadratic Network Flow. For each species linear network flow will generate areas to be protected Values of one and cells not to be protected (values of zero). Quadratic network flow, on the other hand, will have, for each cell, an irreplaceability index going from zero to one. Here, zero means that there are no chains passing by that spacial point that go from the source to the final destination, and one is a point where chains have to pass through to reach the desired flow.
-In order to do this, we follow Network-flow methods [@Ahuja93] to model the survival and dispersion of species along the space and time, using species distribution models and quadratic flow costs to split the flow evenly across alternative paths. Therefore, the resulting flow across an arc is high only if there are few alternatives to use that edge to achieve the target flow.
-Even when model takes into account protected areas (cost zero) and human habitat such as cities (cost infinite) in the decision making, both were not included in this exercise to simplify the examples. This is a generalist model which only needs the distribution model of the species projected to each time slice and the maximum dispersal distance for each species.
+This model was developed based on the notion of non-overlapping dispersal chains [@williams2005planning] and commonly linear cost was used [@phillips2008optimizing]. We used two aproaches in this study, the linear and quadratic Network Flow. For each species, linear network flow generates cells to be protected (values of one) and cells not to be protected (values of zero). On the other hand, quadratic network flow presents for each cell an irreplaceability index going from zero to one. Here, zero means that there are no chains passing by that spatial point that go from the source to the final destination, and one is a point where chains have to pass through to reach the desired flow.
+
+
 
 #### Model Formulation
 
@@ -144,6 +144,7 @@ In order to generate the networks de QuadCostAmpl package was used [@Corcoran_Qu
 Model
 
 #### Quadratic Network Flow
+In order to do this, we follow Network-flow methods [@Ahuja93] to model the survival and dispersion of species along the space and time, using species distribution models and quadratic flow costs to split the flow evenly across alternative paths. Therefore, the resulting flow across an arc is high only if there are few alternatives to use that edge to achieve the target flow.
 
 ### Zonation
 
