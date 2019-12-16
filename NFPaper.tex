@@ -105,9 +105,9 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Currently, 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC, 2018). However, most of this areas have not been created using priorization tools developed to maximize species or ecosystems conservation based on current biodiversity patterns (Rodrigues et al., 2004; Jenkins, Van Houtan, Pimm, \& Sexton, 2015). The situation is even worst when we take into account that the range of species will change over time (Araújo, Cabeza, Thuiller, Hannah, \& Williams, 2004; Lenoir, Gégout, Marquet, De Ruffray, \& Brisse, 2008; Chen, Hill, Ohlemüller, Roy, \& Thomas, 2011; Regos et al., 2016), were several species that are now being protected by these areas might not be protected in the future because of the climate crisis (Araújo et al., 2004; Alagador, Cerdeira, \& Araújo, 2014).
+Currently, 14.9\% of terrestrial area is a part of the global protected area network (UNEP-WCMC, 2018). However, most protected areas have not been created using priorization tools developed to maximize outcomes such as species or ecosystems conservation based on current biodiversity patterns, resulting in underperforming conservation networks globally (Rodrigues et al., 2004; Jenkins, Van Houtan, Pimm, \& Sexton, 2015). The situation is even worst when we take into account that species distributions are expected to change over time as a result of anthropogenic climate change (Araújo, Cabeza, Thuiller, Hannah, \& Williams, 2004; Lenoir, Gégout, Marquet, De Ruffray, \& Brisse, 2008; Chen, Hill, Ohlemüller, Roy, \& Thomas, 2011; Regos et al., 2016), if species that are now protected migrate out of protected areas in the future (Araújo et al., 2004; Hannah et al., 2007; Alagador, Cerdeira, \& Araújo, 2014; Marquet, Lessman, \& Shaw, 2019).
 
-Despite the concern about protected area planning, a review Jones, Watson, Possingham, \& Klein (2016) shows that more than 90\% of the prioritization planing studies that try to incorporate climate change, only take two time steps into account, current climate and the last step of climate. Currently, two of the most used tools for conservation planning are Prioritize and Zonation (Di Minin et al., 2014; Hanson et al., 2019). Zonation can be used for conservation prioritization under climate change as conservation features may be explicitly linked through interaction. This allows for simultaneous prioritization of a species current range, its modelled future range, and the connectivity between the two limited by a species' capacity to disperse.
+Different approaches and workflows have been recently developed with the aim to inform conservation planning in adapting conservation networks to climate change (Marquet et al., 2019). One of the main avenues of research focuses on finding areas that are able to include both species current and future projected distributions. However, a review by Jones, Watson, Possingham, \& Klein (2016) showed that more than 90\% of the prioritization planning studies following this approach did only consider biodiversity needs in two time steps: where does biodiversity occur under current climatic conditions and where is it projected to occur at a certain year ahead in the future (typically, at the end of the century). The concern is that these solutions may be insufficient to effectively allow species meet their future suitable ranges from their current distributions, or that solutions are not adequately optimized. A major problem preventing more adequate solutions is methodological limitation. Currently, the most used tools for conservation planning are Marxan, Prioritizr and Zonation (Di Minin et al., 2014; Hanson et al., 2019). From these, Zonation includes more advanced options to prioritize conservation under climate change scenarios, as conservation features may be explicitly linked through interaction (i.e.: Reside, VanDerWal, \& Moran (2017)). This allows for simultaneous prioritization of a species current range, its modelled future range, and the connectivity between the two limited by a species' capacity to disperse, but it is restricted to using one future modelled range per species. On the other hand, Prioritizr and Marxan do not include specific options to consider climate change related biodiversity needs.
 
 \begin{table}[H]
 \centering
@@ -124,9 +124,11 @@ Considers cost as part of the solution & Yes & Yes & No & Yes\\
 \end{tabular}
 \end{table}
 
-However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use (Rosenberg, Noon, \& Meslow, 1997; Nuñez et al., 2013). Thus, the planification and creation of those biological corridors correspond to adaptive measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al., 2007). In that context, biological corridors should consider effects of climate crisis, changes in land use and habitat fragmentation, in order to evaluate the factibility of the species reaching future available habitat.
+However, in order for the species to move from areas were they are currently protected to the future protected areas, their route has to be protected as well, that is the biological corridors that they will use (Rosenberg, Noon, \& Meslow, 1997; Nuñez et al., 2013). These routes might be referred as climate biological corridors. The planning and creation of these biological corridors correspond to adaptive measures to environmental changes that would mitigate the impacts of the climate crisis (Hannah et al., 2007). In that context, biological corridors should consider the progressivity of the effects of the climate crisis, including changes in suitable climatic conditions and in land use and habitat fragmentation, in order to evaluate the feasibility of the species reaching their future available habitat.
 
-There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species (Cushman et al., 2013; Alagador et al., 2014; Gregory et al., 2014) or group of species (Williams et al., 2005; Beier, Majka, \& Bayless, 2007; Phillips, Williams, Midgley, \& Archer, 2008), not being able to be use for planning for lack of species or be in confined spaces, respectively. A continental approach was made by Lawler, Ruesch, Olden, \& McRae (2013), who modelled biological corridors in the Americas. Even when that model was made for close to 3,000 species did not consider species dispersal speed or use the information to build priority areas. Among these articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, \& Orlin, 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
+There have been several approaches trying to model biological corridors. Local approaches have focus just in one or a few species (Cushman et al., 2013; Alagador et al., 2014; Gregory et al., 2014) or group of species (Williams et al., 2005; Beier, Majka, \& Bayless, 2007; Phillips, Williams, Midgley, \& Archer, 2008), not being able to be use for planning for lack of species or be in confined spaces, respectively. A continental approach was made by Lawler, Ruesch, Olden, \& McRae (2013), who modelled biological corridors in the Americas. Even when that model was made for close to 3,000 species, but it did not consider species dispersal speed, and it did not use the information on species migration routes to identify priority areas that are climatically resilient.
+
+Among these articles, the work of Phillips et al. (2008), incorporates the use of the Network Flow optimization method (Ahuja, Magnanti, \& Orlin, 1993) in order to solve the problem expressed by Williams et al. (2005), generating a solution 33\% more efficient than previous optimization methods. This makes this methodology one of the most promising ways of solving conservation planning problems through the use of biological corridors.
 
 In its traditional use, Network flow gives the best possible solution given constrains (Phillips et al., 2008). If we looked at the solution for a species in a raster, every cell would have a value of either one or zero, where one would be a cell necessary for the conservation of the species or a zero if it is not necessary. This best solution, however, only represents one of the possible solutions to conserve a species, and does not give us any alternatives. in this research we present Quadratic Cost Network Flow as alternative solution, where for every species we would still get a value of one if the cell is irreplaceable for the solution, zero if that cell is not needed, and an intermediate value for cells that are one of many alternative solutions for a given species, this is, for every cell we have an irreplaceability index. Spatial planning is a complex endeavour where agendas and/or needs evolve rapidly and several alternative suboptimal solutions might be needed in order to navigate this complex decisions.
 
@@ -138,8 +140,6 @@ In this article we present a new method of working with network flow on conserva
 \hypertarget{area}{%
 \subsection{Area}\label{area}}
 
-The studied area was the Northern Tropical Andes, consisting of the countries of Colombia, Venezuela and Ecuador, with a buffer of 200 kilometres around land areas.
-
 \begin{figure}
 
 {\centering \includegraphics{NFPaper_files/figure-latex/MapArea-1} 
@@ -149,7 +149,7 @@ The studied area was the Northern Tropical Andes, consisting of the countries of
 \caption{Map of Southamerica, the darkened area is the area where the priorization was performed}\label{fig:MapArea}
 \end{figure}
 
-The studied area is shown in figure \ref{fig:MapArea} and it encompasses 3,632,762 square kilometres.
+The studied area was the Northern Tropical Andes, including the countries of Colombia, Venezuela and Ecuador (Figure \ref{fig:MapArea}). To avoid pixels on countries' borders receiving a lower priority due to a boundary effect, we extended the analyses to a buffer of 200 kilometers around their terrestrial domains. The study area encompasses a total of 3,632,762 square kilometres.
 
 \hypertarget{global-circulation-models}{%
 \subsection{Global circulation models}\label{global-circulation-models}}
@@ -499,6 +499,9 @@ Lawler, J., Ruesch, A., Olden, J., \& McRae, B. (2013). Projected climate-driven
 \leavevmode\hypertarget{ref-lenoir2008significant}{}%
 Lenoir, J., Gégout, J.-C., Marquet, P., De Ruffray, P., \& Brisse, H. (2008). A significant upward shift in plant species optimum elevation during the 20th century. \emph{Science}, \emph{320}(5884), 1768--1771.
 
+\leavevmode\hypertarget{ref-marquet_2019}{}%
+Marquet, P., Lessman, J., \& Shaw, R. (2019). Protected-area management and climate change. In T. E. Lovejoy, L. Hannah, \& E. O. Wilson (Eds.), \emph{Biodiversity and climate change: Transforming the biosphere} (pp. 283--293). New Haven, Connecticut: Yale University Press.
+
 \leavevmode\hypertarget{ref-merow2014we}{}%
 Merow, C., Smith, M. J., Edwards Jr, T. C., Guisan, A., McMahon, S. M., Normand, S., \ldots{} Elith, J. (2014). What do we gain from simplicity versus complexity in species distribution models? \emph{Ecography}, \emph{37}(12), 1267--1281.
 
@@ -519,6 +522,9 @@ Phillips, S. J., Williams, P., Midgley, G., \& Archer, A. (2008). Optimizing dis
 
 \leavevmode\hypertarget{ref-regos2016predicting}{}%
 Regos, A., D'Amen, M., Titeux, N., Herrando, S., Guisan, A., \& Brotons, L. (2016). Predicting the future effectiveness of protected areas for bird conservation in mediterranean ecosystems under climate change and novel fire regime scenarios. \emph{Diversity and Distributions}, \emph{22}(1), 83--96.
+
+\leavevmode\hypertarget{ref-reside2017trade}{}%
+Reside, A. E., VanDerWal, J., \& Moran, C. (2017). Trade-offs in carbon storage and biodiversity conservation under climate change reveal risk to endemic species. \emph{Biological Conservation}, \emph{207}, 9--16.
 
 \leavevmode\hypertarget{ref-rodrigues2004effectiveness}{}%
 Rodrigues, A. S., Andelman, S. J., Bakarr, M. I., Boitani, L., Brooks, T. M., Cowling, R. M., \ldots{} others. (2004). Effectiveness of the global protected area network in representing species diversity. \emph{Nature}, \emph{428}(6983), 640.
